@@ -56,12 +56,7 @@ function M.apply(palette, variant, scheme_name)
   local bufferline_bg_markdown = palette.bg
   local bufferline_bg_code = is_vintage_variant and palette.bg or "NONE"
 
-  local syntax_variant = vim.g.homesick_syntax_variant
-  if syntax_variant == nil then
-    syntax_variant = is_vintage_variant and "legacy" or "rosepine"
-  end
-
-  local use_rosepine_syntax = syntax_variant ~= "legacy"
+  local use_rosepine_syntax = not is_vintage_variant
   local legacy_comment = is_vintage_variant and color.faded_text or color.comment
   local legacy_identifier = is_vintage_variant and color.softcream.desaturate(10).darken(5) or color.text
   local legacy_operator = is_vintage_variant and color.rose or lush.hsl("#5F8AA3")

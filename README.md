@@ -3,6 +3,8 @@
 Homesick is a Neovim colorscheme with two built-in variants:
 
 ### Moon
+*Inspired by [Rosé Pine](https://github.com/rose-pine/neovim) with a darker, cooler base.*
+
 ![moon](screenshots/moon.png)
 
 ### Night

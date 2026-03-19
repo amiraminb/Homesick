@@ -76,7 +76,6 @@ function M.apply(palette, variant, scheme_name)
   local statusline_bg = is_vintage_variant and color.bar_bg or color.lualine_bg
   local bufferline_selected_fg = is_vintage_variant and color.yellow or color.text
   local bufferline_selected_icon_fg = is_vintage_variant and color.warmsilver or color.text
-  local bufferline_selected_bg_value = bufferline_selected_bg
   local bufferline_selected_italic = not is_vintage_variant
 
   -- stylua: ignore start

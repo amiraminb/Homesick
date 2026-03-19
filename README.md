@@ -2,8 +2,11 @@
 
 Homesick is a Neovim colorscheme with two built-in variants:
 
-- `moon` 
-- `night` 
+### Moon
+![moon](screenshots/moon.png)
+
+### Night
+![night](screenshots/night.png)
 
 ## Install (lazy.nvim)
 

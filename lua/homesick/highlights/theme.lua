@@ -1,119 +1,51 @@
-local M = {}
+-- Lush theme definition for homesick
+-- Receives a context table with all derived colors and flags.
+-- Returns lush highlight groups.
 
-function M.apply(palette, variant, scheme_name)
-  vim.opt.termguicolors = true
-
-  if vim.g.colors_name then
-    vim.cmd("hi clear")
-    vim.cmd("syntax reset")
-  end
-
-  vim.g.colors_name = scheme_name or ("homesick-" .. (variant or "moon"))
-
+local function build(ctx)
   local lush = require("lush")
-  local is_vintage_variant = variant == "night"
-
-  vim.o.background = "dark"
-
-  vim.g.terminal_color_0 = palette.bg
-  vim.g.terminal_color_1 = palette.red
-  vim.g.terminal_color_2 = palette.green
-  vim.g.terminal_color_3 = palette.yellow
-  vim.g.terminal_color_4 = palette.blue
-  vim.g.terminal_color_5 = palette.magenta
-  vim.g.terminal_color_6 = palette.cyan
-  vim.g.terminal_color_7 = palette.white
-  vim.g.terminal_color_8 = palette.brightBlack
-  vim.g.terminal_color_9 = palette.brightRed
-  vim.g.terminal_color_10 = palette.brightGreen
-  vim.g.terminal_color_11 = palette.brightYellow
-  vim.g.terminal_color_12 = palette.brightBlue
-  vim.g.terminal_color_13 = palette.brightMagenta
-  vim.g.terminal_color_14 = palette.brightCyan
-  vim.g.terminal_color_15 = palette.brightWhite
-
-  local color = {}
-  for key, value in pairs(palette) do
-    color[key] = lush.hsl(value)
-  end
-
-  local rp = {
-    text = color.rp_text or color.text,
-    love = color.rp_love or color.red,
-    gold = color.rp_gold or color.yellow,
-    rose = color.rose,
-    pine = color.blue,
-    foam = color.cyan,
-    iris = color.rp_iris or color.purple,
-    subtle = color.strong_text,
-  }
-  local rp_bg = color.rp_bg or color.bg
-  local code_bg = is_vintage_variant and color.bg or "NONE"
-  local markdown_bg = color.bg
-  local markdown_cursorline_bg = is_vintage_variant and color.bg.lighten(4) or color.markdown_cursorline
-  local cursorline_code_bg = markdown_cursorline_bg
-  local bufferline_selected_bg = color.bg.lighten(8)
-  local bufferline_bg_markdown = palette.bg
-  local bufferline_bg_code = is_vintage_variant and palette.bg or "NONE"
-
-  local use_rosepine_syntax = not is_vintage_variant
-  local legacy_comment = is_vintage_variant and color.faded_text or color.comment
-  local legacy_identifier = is_vintage_variant and color.softcream.desaturate(10).darken(5) or color.text
-  local legacy_operator = is_vintage_variant and color.rose or color.operator_alt
-  local legacy_keyword = is_vintage_variant and color.redrose or legacy_operator
-  local legacy_number = is_vintage_variant and color.yellow or color.number
-  local legacy_type = is_vintage_variant and color.softblue or color.type_text
-  local underlined_fg = use_rosepine_syntax and rp.iris or nil
-
-  local function sx(legacy, rosepine)
-    return use_rosepine_syntax and rosepine or legacy
-  end
-
-  local function_color = is_vintage_variant and color.softteal or sx(color.rose, rp.rose)
-  local cursorcolumn_bg = is_vintage_variant and color.bg.lighten(20) or rp_bg.lighten(12)
-  local colorcolumn_bg = is_vintage_variant and color.thin_line or color.lualine_bg
-  local qf_currentline_fg = is_vintage_variant and color.rose or color.redrose
-  local statusline_bg = is_vintage_variant and color.bar_bg or color.lualine_bg
-  local bufferline_selected_fg = is_vintage_variant and color.yellow or color.text
-  local bufferline_selected_icon_fg = is_vintage_variant and color.warmsilver or color.text
-  local bufferline_selected_italic = not is_vintage_variant
+  local color = ctx.color
+  local rp = ctx.rp
+  local sx = ctx.sx
+  local use_rosepine_syntax = ctx.use_rosepine_syntax
+  local is_vintage_variant = ctx.is_vintage_variant
 
   -- stylua: ignore start
   local theme = lush(function(fn)
     local sym = fn.sym
 
     return {
-      Normal { fg = color.text, bg = code_bg },
-      NormalNC { fg = color.text, bg = code_bg },
-      HyperMarkdownNormal { fg = color.text, bg = markdown_bg },
-      HyperMarkdownNormalNC { fg = color.text, bg = markdown_bg },
-      HyperMarkdownCursorLine { bg = markdown_cursorline_bg },
-      Comment { fg = sx(legacy_comment, rp.subtle), italic = use_rosepine_syntax },
+      Normal { fg = color.text, bg = ctx.code_bg },
+      NormalNC { fg = color.text, bg = ctx.code_bg },
+      HyperMarkdownNormal { fg = color.text, bg = ctx.markdown_bg },
+      HyperMarkdownNormalNC { fg = color.text, bg = ctx.markdown_bg },
+      HyperMarkdownCursorLine { bg = ctx.markdown_cursorline_bg },
+      Comment { fg = sx(ctx.legacy_comment, rp.subtle), italic = use_rosepine_syntax },
 
       Constant { fg = sx(color.silver, rp.gold) },
       String { fg = sx(color.purple, rp.gold) },
       Character { fg = sx(color.teal, rp.gold) },
-      Number { fg = sx(legacy_number, rp.gold) },
+      Number { fg = sx(ctx.legacy_number, rp.gold) },
       Boolean { fg = sx(color.yellow, rp.rose) },
       Float { fg = sx(color.yellow, rp.gold) },
 
-      Identifier { fg = sx(legacy_identifier, rp.text) },
-      Function { fg = function_color },
+      Identifier { fg = sx(ctx.legacy_identifier, rp.text) },
+      Function { fg = ctx.function_color },
 
       Statement { fg = sx(color.purple, rp.pine), bold = use_rosepine_syntax },
-      Operator { fg = sx(legacy_operator, rp.subtle) },
-      Keyword { fg = sx(legacy_keyword, rp.pine) },
+      Operator { fg = sx(ctx.legacy_operator, rp.subtle) },
+      Keyword { fg = sx(ctx.legacy_keyword, rp.pine) },
 
       PreProc { fg = sx(color.magenta, rp.iris) },
       Include { fg = sx(color.blue, rp.pine), bold = not use_rosepine_syntax },
       Macro { fg = sx(color.orange, rp.iris) },
 
-      Type { fg = sx(legacy_type, rp.foam), bold = not use_rosepine_syntax },
+      Type { fg = sx(ctx.legacy_type, rp.foam), bold = not use_rosepine_syntax },
       Typedef { Type },
 
       Special { fg = sx(color.silver, rp.foam) },
       Delimiter { fg = sx(color.faded_text, rp.subtle) },
-      Underlined { fg = underlined_fg, gui = "underline" },
+      Underlined { fg = ctx.underlined_fg, gui = "underline" },
 
       sym"@comment" { Comment },
       sym"@constant" { Constant },
@@ -121,7 +53,7 @@ function M.apply(palette, variant, scheme_name)
       sym"@constant.macro" { Constant },
       sym"@macro" { Macro },
       sym"@string" { String },
-      sym"@string.escape" { fg = sx(legacy_operator, rp.pine) },
+      sym"@string.escape" { fg = sx(ctx.legacy_operator, rp.pine) },
       sym"@character" { Character },
       sym"@number" { Number },
       sym"@boolean" { Boolean },
@@ -150,13 +82,13 @@ function M.apply(palette, variant, scheme_name)
 
       Conceal { fg = color.faded_text },
       Cursor { reverse = true },
-      CursorColumn { bg = cursorcolumn_bg },
-      CursorLine { bg = cursorline_code_bg },
+      CursorColumn { bg = ctx.cursorcolumn_bg },
+      CursorLine { bg = ctx.cursorline_code_bg },
       WinBar { bg = "NONE" },
       WinBarNC { bg = "NONE" },
-      QfCurrentLine { fg = qf_currentline_fg, bold = true },
+      QfCurrentLine { fg = ctx.qf_currentline_fg, bold = true },
       VirtColumn { fg = color.thin_line },
-      ColorColumn { bg = colorcolumn_bg },
+      ColorColumn { bg = ctx.colorcolumn_bg },
       Directory { fg = color.text },
 
       GitAdded { fg = color.green },
@@ -216,26 +148,26 @@ function M.apply(palette, variant, scheme_name)
       PmenuThumb { bg = Pmenu.bg.lighten(15) },
       SpecialKey { fg = color.faded_text },
 
-      StatusLine { bg = statusline_bg },
+      StatusLine { bg = ctx.statusline_bg },
       StatusLineNC { StatusLine },
       TabLine { bg = "NONE" },
       TabLineFill { bg = "NONE" },
       TabLineSel { bg = "NONE" },
 
-      BufferLineBufferSelected { fg = bufferline_selected_fg, bg = bufferline_selected_bg, bold = true, italic = bufferline_selected_italic },
-      BufferLineDuplicateSelected { fg = bufferline_selected_fg, bg = bufferline_selected_bg, bold = true, italic = true },
-      BufferLineErrorSelected { fg = bufferline_selected_icon_fg, bg = bufferline_selected_bg, bold = true, italic = bufferline_selected_italic },
-      BufferLineErrorDiagnosticSelected { fg = color.red, bg = bufferline_selected_bg },
-      BufferLineWarningSelected { fg = bufferline_selected_icon_fg, bg = bufferline_selected_bg, bold = true, italic = bufferline_selected_italic },
-      BufferLineWarningDiagnosticSelected { fg = color.yellow, bg = bufferline_selected_bg },
-      BufferLineInfoSelected { fg = bufferline_selected_icon_fg, bg = bufferline_selected_bg, bold = true, italic = bufferline_selected_italic },
-      BufferLineInfoDiagnosticSelected { fg = color.blue, bg = bufferline_selected_bg },
-      BufferLineHintSelected { fg = bufferline_selected_icon_fg, bg = bufferline_selected_bg, bold = true, italic = bufferline_selected_italic },
-      BufferLineHintDiagnosticSelected { fg = color.silver, bg = bufferline_selected_bg },
-      BufferLineSeparatorSelected { fg = color.thin_line, bg = bufferline_selected_bg },
-      BufferLineModifiedSelected { fg = color.yellow, bg = bufferline_selected_bg },
-      BufferLineCloseButtonSelected { fg = color.bar_text, bg = bufferline_selected_bg },
-      BufferLineIndicatorSelected { fg = color.cyan, bg = bufferline_selected_bg },
+      BufferLineBufferSelected { fg = ctx.bufferline_selected_fg, bg = ctx.bufferline_selected_bg, bold = true, italic = ctx.bufferline_selected_italic },
+      BufferLineDuplicateSelected { fg = ctx.bufferline_selected_fg, bg = ctx.bufferline_selected_bg, bold = true, italic = true },
+      BufferLineErrorSelected { fg = ctx.bufferline_selected_icon_fg, bg = ctx.bufferline_selected_bg, bold = true, italic = ctx.bufferline_selected_italic },
+      BufferLineErrorDiagnosticSelected { fg = color.red, bg = ctx.bufferline_selected_bg },
+      BufferLineWarningSelected { fg = ctx.bufferline_selected_icon_fg, bg = ctx.bufferline_selected_bg, bold = true, italic = ctx.bufferline_selected_italic },
+      BufferLineWarningDiagnosticSelected { fg = color.yellow, bg = ctx.bufferline_selected_bg },
+      BufferLineInfoSelected { fg = ctx.bufferline_selected_icon_fg, bg = ctx.bufferline_selected_bg, bold = true, italic = ctx.bufferline_selected_italic },
+      BufferLineInfoDiagnosticSelected { fg = color.blue, bg = ctx.bufferline_selected_bg },
+      BufferLineHintSelected { fg = ctx.bufferline_selected_icon_fg, bg = ctx.bufferline_selected_bg, bold = true, italic = ctx.bufferline_selected_italic },
+      BufferLineHintDiagnosticSelected { fg = color.silver, bg = ctx.bufferline_selected_bg },
+      BufferLineSeparatorSelected { fg = color.thin_line, bg = ctx.bufferline_selected_bg },
+      BufferLineModifiedSelected { fg = color.yellow, bg = ctx.bufferline_selected_bg },
+      BufferLineCloseButtonSelected { fg = color.bar_text, bg = ctx.bufferline_selected_bg },
+      BufferLineIndicatorSelected { fg = color.cyan, bg = ctx.bufferline_selected_bg },
 
       Title { fg = color.magenta, bold = true },
       VertSplit { fg = color.thin_line },
@@ -434,128 +366,6 @@ function M.apply(palette, variant, scheme_name)
   -- stylua: ignore end
 
   lush(theme)
-
-  -- Bufferline inactive/visible highlights (context-aware bg)
-  -- Defined here so both variants use the same single source of truth.
-  -- "Selected" groups are in the lush theme above; these are the rest.
-
-  local function patch_bufferline_devicons(inactive_bg, selected_bg)
-    local all_hls = vim.api.nvim_get_hl(0, {})
-    for name, hl in pairs(all_hls) do
-      if name:match("^BufferLineDevIcon") then
-        local is_selected = name:match("Selected$")
-        local target_bg = is_selected and selected_bg or inactive_bg
-        if hl.fg then
-          vim.api.nvim_set_hl(0, name, { fg = hl.fg, bg = target_bg, bold = hl.bold, italic = hl.italic })
-        end
-      end
-    end
-  end
-
-  local function apply_bufferline_inactive_highlights(bg)
-    local sel_bg = tostring(bufferline_selected_bg)
-
-    vim.api.nvim_set_hl(0, "BufferLineFill", { bg = bg })
-    vim.api.nvim_set_hl(0, "BufferLineBackground", { bg = bg })
-    vim.api.nvim_set_hl(0, "BufferLineBufferVisible", { fg = palette.bar_faded_text, bg = bg })
-    vim.api.nvim_set_hl(0, "BufferLineSeparator", { fg = palette.thin_line, bg = bg })
-    vim.api.nvim_set_hl(0, "BufferLineSeparatorVisible", { fg = palette.thin_line, bg = bg })
-    vim.api.nvim_set_hl(0, "BufferLineModified", { fg = palette.yellow, bg = bg })
-    vim.api.nvim_set_hl(0, "BufferLineModifiedVisible", { fg = palette.yellow, bg = bg })
-    vim.api.nvim_set_hl(0, "BufferLineCloseButton", { fg = palette.bar_faded_text, bg = bg })
-    vim.api.nvim_set_hl(0, "BufferLineCloseButtonVisible", { fg = palette.bar_faded_text, bg = bg })
-    vim.api.nvim_set_hl(0, "BufferLineIndicatorVisible", { fg = palette.thin_line, bg = bg })
-    vim.api.nvim_set_hl(0, "BufferLineError", { fg = palette.bar_faded_text, bg = bg })
-    vim.api.nvim_set_hl(0, "BufferLineErrorVisible", { fg = palette.bar_faded_text, bg = bg })
-    vim.api.nvim_set_hl(0, "BufferLineWarning", { fg = palette.bar_faded_text, bg = bg })
-    vim.api.nvim_set_hl(0, "BufferLineWarningVisible", { fg = palette.bar_faded_text, bg = bg })
-    vim.api.nvim_set_hl(0, "BufferLineInfo", { fg = palette.bar_faded_text, bg = bg })
-    vim.api.nvim_set_hl(0, "BufferLineInfoVisible", { fg = palette.bar_faded_text, bg = bg })
-    vim.api.nvim_set_hl(0, "BufferLineHint", { fg = palette.bar_faded_text, bg = bg })
-    vim.api.nvim_set_hl(0, "BufferLineHintVisible", { fg = palette.bar_faded_text, bg = bg })
-    vim.api.nvim_set_hl(0, "BufferLineErrorDiagnostic", { fg = palette.red, bg = bg })
-    vim.api.nvim_set_hl(0, "BufferLineErrorDiagnosticVisible", { fg = palette.red, bg = bg })
-    vim.api.nvim_set_hl(0, "BufferLineWarningDiagnostic", { fg = palette.yellow, bg = bg })
-    vim.api.nvim_set_hl(0, "BufferLineWarningDiagnosticVisible", { fg = palette.yellow, bg = bg })
-    vim.api.nvim_set_hl(0, "BufferLineInfoDiagnostic", { fg = palette.blue, bg = bg })
-    vim.api.nvim_set_hl(0, "BufferLineInfoDiagnosticVisible", { fg = palette.blue, bg = bg })
-    vim.api.nvim_set_hl(0, "BufferLineHintDiagnostic", { fg = palette.silver, bg = bg })
-    vim.api.nvim_set_hl(0, "BufferLineHintDiagnosticVisible", { fg = palette.silver, bg = bg })
-    vim.api.nvim_set_hl(0, "BufferLineDuplicate", { fg = palette.faded_text, bg = bg, italic = true })
-    vim.api.nvim_set_hl(0, "BufferLineDuplicateVisible", { fg = palette.faded_text, bg = bg, italic = true })
-
-    patch_bufferline_devicons(bg, sel_bg)
-  end
-
-  -- Apply bufferline inactive highlights once for both variants
-  apply_bufferline_inactive_highlights(bufferline_bg_code)
-
-  if is_vintage_variant then
-    vim.api.nvim_exec_autocmds("User", { pattern = "ThemeApplied" })
-    return
-  end
-
-  -- Moon variant: dynamic context switching (markdown gets solid bg, code gets transparent)
-
-  local function set_window_context_highlights(win, is_markdown)
-    if not vim.api.nvim_win_is_valid(win) then
-      return
-    end
-
-    local cfg = vim.api.nvim_win_get_config(win)
-    local is_floating = cfg and cfg.relative and cfg.relative ~= ""
-
-    local current = vim.wo[win].winhighlight or ""
-    local items = {}
-
-    for item in string.gmatch(current, "[^,]+") do
-      local from = item:match("^([^:]+):")
-      if from ~= "Normal" and from ~= "NormalNC" and from ~= "CursorLine" then
-        table.insert(items, item)
-      end
-    end
-
-    if is_markdown and not is_floating then
-      table.insert(items, "Normal:HyperMarkdownNormal")
-      table.insert(items, "NormalNC:HyperMarkdownNormalNC")
-      table.insert(items, "CursorLine:HyperMarkdownCursorLine")
-    end
-
-    vim.wo[win].winhighlight = table.concat(items, ",")
-  end
-
-  local function apply_window_context_for_buffer(buf)
-    if not vim.api.nvim_buf_is_valid(buf) then
-      return
-    end
-
-    local is_markdown = vim.bo[buf].filetype == "markdown"
-    for _, win in ipairs(vim.fn.win_findbuf(buf)) do
-      set_window_context_highlights(win, is_markdown)
-    end
-  end
-
-  local function apply_buffer_context(buf)
-    apply_window_context_for_buffer(buf)
-    local is_markdown = vim.bo[buf].filetype == "markdown"
-    local bg = is_markdown and bufferline_bg_markdown or bufferline_bg_code
-    apply_bufferline_inactive_highlights(bg)
-  end
-
-  local md_bg_group = vim.api.nvim_create_augroup("HomesickMarkdownBackground", { clear = true })
-  vim.api.nvim_create_autocmd({ "FileType", "BufWinEnter", "BufEnter", "WinEnter" }, {
-    group = md_bg_group,
-    callback = function(args)
-      local buf = args.buf ~= 0 and args.buf or vim.api.nvim_get_current_buf()
-      apply_buffer_context(buf)
-    end,
-  })
-
-  for _, win in ipairs(vim.api.nvim_list_wins()) do
-    apply_window_context_for_buffer(vim.api.nvim_win_get_buf(win))
-  end
-
-  vim.api.nvim_exec_autocmds("User", { pattern = "ThemeApplied" })
 end
 
-return M
+return build

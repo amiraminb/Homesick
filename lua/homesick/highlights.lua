@@ -38,19 +38,19 @@ function M.apply(palette, variant, scheme_name)
   end
 
   local rp = {
-    text = lush.hsl("#C7C9CC"),
-    love = lush.hsl("#eb6f92"),
-    gold = lush.hsl("#f6c177"),
-    rose = lush.hsl("#ebbcba"),
-    pine = lush.hsl("#31748f"),
-    foam = lush.hsl("#9ccfd8"),
-    iris = lush.hsl("#c4a7e7"),
-    subtle = lush.hsl("#908caa"),
+    text = color.rp_text or color.text,
+    love = color.rp_love or color.red,
+    gold = color.rp_gold or color.yellow,
+    rose = color.rose,
+    pine = color.blue,
+    foam = color.cyan,
+    iris = color.rp_iris or color.purple,
+    subtle = color.strong_text,
   }
-  local rp_bg = lush.hsl("#1A1E2A")
+  local rp_bg = color.rp_bg or color.bg
   local code_bg = is_vintage_variant and color.bg or "NONE"
   local markdown_bg = color.bg
-  local markdown_cursorline_bg = is_vintage_variant and color.bg.lighten(4) or lush.hsl("#3F3F5B")
+  local markdown_cursorline_bg = is_vintage_variant and color.bg.lighten(4) or color.markdown_cursorline
   local cursorline_code_bg = markdown_cursorline_bg
   local bufferline_selected_bg = color.bg.lighten(8)
   local bufferline_bg_markdown = palette.bg
@@ -59,7 +59,7 @@ function M.apply(palette, variant, scheme_name)
   local use_rosepine_syntax = not is_vintage_variant
   local legacy_comment = is_vintage_variant and color.faded_text or color.comment
   local legacy_identifier = is_vintage_variant and color.softcream.desaturate(10).darken(5) or color.text
-  local legacy_operator = is_vintage_variant and color.rose or lush.hsl("#5F8AA3")
+  local legacy_operator = is_vintage_variant and color.rose or color.operator_alt
   local legacy_keyword = is_vintage_variant and color.redrose or legacy_operator
   local legacy_number = is_vintage_variant and color.yellow or color.number
   local legacy_type = is_vintage_variant and color.softblue or color.type_text
@@ -169,10 +169,10 @@ function M.apply(palette, variant, scheme_name)
       diffChanged { GitChanged },
       diffDeleted { GitDeleted },
 
-      DiffAdd { bg = lush.hsl("#16352b"), fg = "NONE" },
-      DiffChange { bg = lush.hsl("#1b2f45"), fg = "NONE" },
-      DiffDelete { bg = lush.hsl("#4a232c"), fg = "NONE" },
-      DiffText { bg = lush.hsl("#244a66"), fg = "NONE" },
+      DiffAdd { bg = color.diff_add, fg = "NONE" },
+      DiffChange { bg = color.diff_change, fg = "NONE" },
+      DiffDelete { bg = color.diff_delete, fg = "NONE" },
+      DiffText { bg = color.diff_text, fg = "NONE" },
 
       DiffviewStatusAdded { fg = color.green },
       DiffviewStatusModified { fg = color.blue },
@@ -210,7 +210,7 @@ function M.apply(palette, variant, scheme_name)
       NonText { fg = color.faded_text },
 
       NormalFloat { fg = color.text, bg = color.float_bg },
-      Pmenu { fg = color.text, bg = is_vintage_variant and color.bg.lighten(3) or lush.hsl("#2D2E46") },
+      Pmenu { fg = color.text, bg = is_vintage_variant and color.bg.lighten(3) or color.pmenu_bg },
       PmenuSel { fg = color.text, bg = color.purple.mix(color.bg, 70), bold = true },
       PmenuSbar { bg = Pmenu.bg.lighten(5) },
       PmenuThumb { bg = Pmenu.bg.lighten(15) },
@@ -374,24 +374,24 @@ function M.apply(palette, variant, scheme_name)
       SnacksNotifierBorderTrace { fg = color.float_thin_line, bg = color.float_bg },
       SnacksNotifierIconTrace { fg = color.silver },
 
-      SnacksNotifierDebug { fg = color.text, bg = lush.hsl("#252530") },
-      SnacksNotifierTitleDebug { fg = color.purple.lighten(15), bg = lush.hsl("#252530"), bold = true },
-      SnacksNotifierBorderDebug { fg = color.purple.darken(20), bg = lush.hsl("#252530") },
+      SnacksNotifierDebug { fg = color.text, bg = color.notify_debug_bg },
+      SnacksNotifierTitleDebug { fg = color.purple.lighten(15), bg = color.notify_debug_bg, bold = true },
+      SnacksNotifierBorderDebug { fg = color.purple.darken(20), bg = color.notify_debug_bg },
       SnacksNotifierIconDebug { fg = color.purple },
 
-      SnacksNotifierInfo { fg = color.text, bg = lush.hsl("#1e2630") },
-      SnacksNotifierTitleInfo { fg = color.blue.lighten(20), bg = lush.hsl("#1e2630"), bold = true },
-      SnacksNotifierBorderInfo { fg = color.blue, bg = lush.hsl("#1e2630") },
+      SnacksNotifierInfo { fg = color.text, bg = color.notify_info_bg },
+      SnacksNotifierTitleInfo { fg = color.blue.lighten(20), bg = color.notify_info_bg, bold = true },
+      SnacksNotifierBorderInfo { fg = color.blue, bg = color.notify_info_bg },
       SnacksNotifierIconInfo { fg = color.blue.lighten(10) },
 
-      SnacksNotifierWarn { fg = color.text, bg = lush.hsl("#2a2520") },
-      SnacksNotifierTitleWarn { fg = color.yellow.lighten(10), bg = lush.hsl("#2a2520"), bold = true },
-      SnacksNotifierBorderWarn { fg = color.yellow.darken(10), bg = lush.hsl("#2a2520") },
+      SnacksNotifierWarn { fg = color.text, bg = color.notify_warn_bg },
+      SnacksNotifierTitleWarn { fg = color.yellow.lighten(10), bg = color.notify_warn_bg, bold = true },
+      SnacksNotifierBorderWarn { fg = color.yellow.darken(10), bg = color.notify_warn_bg },
       SnacksNotifierIconWarn { fg = color.yellow },
 
-      SnacksNotifierError { fg = color.text, bg = lush.hsl("#2a1f22") },
-      SnacksNotifierTitleError { fg = color.red.lighten(15), bg = lush.hsl("#2a1f22"), bold = true },
-      SnacksNotifierBorderError { fg = color.red, bg = lush.hsl("#2a1f22") },
+      SnacksNotifierError { fg = color.text, bg = color.notify_error_bg },
+      SnacksNotifierTitleError { fg = color.red.lighten(15), bg = color.notify_error_bg, bold = true },
+      SnacksNotifierBorderError { fg = color.red, bg = color.notify_error_bg },
       SnacksNotifierIconError { fg = color.red.lighten(10) },
 
       SnacksNotifierHistory { bg = color.float_bg },

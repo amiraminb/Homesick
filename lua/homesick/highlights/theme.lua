@@ -16,7 +16,7 @@ local function build(ctx)
 
     return {
       Normal { fg = color.text, bg = ctx.code_bg },
-      NormalNC { fg = color.text, bg = ctx.code_bg },
+      NormalNC { fg = color.text, bg = ctx.inactive_bg },
       HyperMarkdownNormal { fg = color.text, bg = ctx.markdown_bg },
       HyperMarkdownNormalNC { fg = color.text, bg = ctx.markdown_bg },
       HyperMarkdownCursorLine { bg = ctx.markdown_cursorline_bg },

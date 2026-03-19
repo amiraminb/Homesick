@@ -63,6 +63,7 @@ M.variants = {
     brightMagenta = "#82658c",
     brightCyan = "#5e8d87",
     brightWhite = "#6d757d",
+    inactive_bg = "#0f1520",
   },
   night = {
     red = "#cc6666",

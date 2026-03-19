@@ -211,7 +211,7 @@ function M.apply(palette, variant, scheme_name)
       NonText { fg = color.faded_text },
 
       NormalFloat { fg = color.text, bg = color.float_bg },
-      Pmenu { fg = color.text, bg = color.bg.lighten(3) },
+      Pmenu { fg = color.text, bg = is_vintage_variant and color.bg.lighten(3) or lush.hsl("#2D2E46") },
       PmenuSel { fg = color.text, bg = color.purple.mix(color.bg, 70), bold = true },
       PmenuSbar { bg = Pmenu.bg.lighten(5) },
       PmenuThumb { bg = Pmenu.bg.lighten(15) },

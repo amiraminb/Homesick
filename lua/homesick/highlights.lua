@@ -486,7 +486,8 @@ function M.apply(palette, variant, scheme_name)
     end
   end
 
-  local function apply_bufferline_context_for_buffer(buf)
+  local function apply_bufferline_context_for_current_buffer()
+    local buf = vim.api.nvim_get_current_buf()
     local is_markdown = vim.bo[buf].filetype == "markdown"
     local bg = is_markdown and bufferline_bg_markdown or bufferline_bg_code
 
@@ -496,7 +497,7 @@ function M.apply(palette, variant, scheme_name)
 
   local function apply_buffer_context(buf)
     apply_window_context_for_buffer(buf)
-    apply_bufferline_context_for_buffer(buf)
+    apply_bufferline_context_for_current_buffer()
   end
 
   local md_bg_group = vim.api.nvim_create_augroup("HomesickMarkdownBackground", { clear = true })
@@ -511,7 +512,7 @@ function M.apply(palette, variant, scheme_name)
   for _, win in ipairs(vim.api.nvim_list_wins()) do
     apply_window_context_for_buffer(vim.api.nvim_win_get_buf(win))
   end
-  apply_bufferline_context_for_buffer(vim.api.nvim_get_current_buf())
+  apply_bufferline_context_for_current_buffer()
 
   vim.api.nvim_exec_autocmds("User", { pattern = "ThemeApplied" })
 end

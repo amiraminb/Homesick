@@ -224,41 +224,18 @@ function M.apply(palette, variant, scheme_name)
 
       BufferLineBufferSelected { fg = bufferline_selected_fg, bg = bufferline_selected_bg, bold = true, italic = bufferline_selected_italic },
       BufferLineDuplicateSelected { fg = bufferline_selected_fg, bg = bufferline_selected_bg, bold = true, italic = true },
-      BufferLineDuplicate { fg = color.faded_text, bg = "NONE", italic = true },
-      BufferLineDuplicateVisible { fg = color.faded_text, bg = "NONE", italic = true },
       BufferLineErrorSelected { fg = bufferline_selected_icon_fg, bg = bufferline_selected_bg, bold = true, italic = bufferline_selected_italic },
-      BufferLineErrorDiagnostic { fg = color.red, bg = "NONE" },
-      BufferLineErrorDiagnosticVisible { fg = color.red, bg = "NONE" },
       BufferLineErrorDiagnosticSelected { fg = color.red, bg = bufferline_selected_bg },
       BufferLineWarningSelected { fg = bufferline_selected_icon_fg, bg = bufferline_selected_bg, bold = true, italic = bufferline_selected_italic },
-      BufferLineWarningDiagnostic { fg = color.yellow, bg = "NONE" },
-      BufferLineWarningDiagnosticVisible { fg = color.yellow, bg = "NONE" },
       BufferLineWarningDiagnosticSelected { fg = color.yellow, bg = bufferline_selected_bg },
       BufferLineInfoSelected { fg = bufferline_selected_icon_fg, bg = bufferline_selected_bg, bold = true, italic = bufferline_selected_italic },
-      BufferLineInfoDiagnostic { fg = color.blue, bg = "NONE" },
-      BufferLineInfoDiagnosticVisible { fg = color.blue, bg = "NONE" },
       BufferLineInfoDiagnosticSelected { fg = color.blue, bg = bufferline_selected_bg },
       BufferLineHintSelected { fg = bufferline_selected_icon_fg, bg = bufferline_selected_bg, bold = true, italic = bufferline_selected_italic },
-      BufferLineHintDiagnostic { fg = color.silver, bg = "NONE" },
-      BufferLineHintDiagnosticVisible { fg = color.silver, bg = "NONE" },
       BufferLineHintDiagnosticSelected { fg = color.silver, bg = bufferline_selected_bg },
-
-      BufferLineBufferVisible { fg = color.bar_faded_text, bg = "NONE" },
-
-      BufferLineSeparator { fg = color.thin_line, bg = "NONE" },
       BufferLineSeparatorSelected { fg = color.thin_line, bg = bufferline_selected_bg },
-      BufferLineSeparatorVisible { fg = color.thin_line, bg = "NONE" },
-
-      BufferLineModified { fg = color.yellow, bg = "NONE" },
       BufferLineModifiedSelected { fg = color.yellow, bg = bufferline_selected_bg },
-      BufferLineModifiedVisible { fg = color.yellow, bg = "NONE" },
-
-      BufferLineCloseButton { fg = color.bar_faded_text, bg = "NONE" },
       BufferLineCloseButtonSelected { fg = color.bar_text, bg = bufferline_selected_bg },
-      BufferLineCloseButtonVisible { fg = color.bar_faded_text, bg = "NONE" },
-
       BufferLineIndicatorSelected { fg = color.cyan, bg = bufferline_selected_bg },
-      BufferLineIndicatorVisible { fg = color.thin_line, bg = "NONE" },
 
       Title { fg = color.magenta, bold = true },
       VertSplit { fg = color.thin_line },
@@ -458,10 +435,67 @@ function M.apply(palette, variant, scheme_name)
 
   lush(theme)
 
+  -- Bufferline inactive/visible highlights (context-aware bg)
+  -- Defined here so both variants use the same single source of truth.
+  -- "Selected" groups are in the lush theme above; these are the rest.
+
+  local function patch_bufferline_devicons(inactive_bg, selected_bg)
+    local all_hls = vim.api.nvim_get_hl(0, {})
+    for name, hl in pairs(all_hls) do
+      if name:match("^BufferLineDevIcon") then
+        local is_selected = name:match("Selected$")
+        local target_bg = is_selected and selected_bg or inactive_bg
+        if hl.fg then
+          vim.api.nvim_set_hl(0, name, { fg = hl.fg, bg = target_bg, bold = hl.bold, italic = hl.italic })
+        end
+      end
+    end
+  end
+
+  local function apply_bufferline_inactive_highlights(bg)
+    local sel_bg = tostring(bufferline_selected_bg)
+
+    vim.api.nvim_set_hl(0, "BufferLineFill", { bg = bg })
+    vim.api.nvim_set_hl(0, "BufferLineBackground", { bg = bg })
+    vim.api.nvim_set_hl(0, "BufferLineBufferVisible", { fg = palette.bar_faded_text, bg = bg })
+    vim.api.nvim_set_hl(0, "BufferLineSeparator", { fg = palette.thin_line, bg = bg })
+    vim.api.nvim_set_hl(0, "BufferLineSeparatorVisible", { fg = palette.thin_line, bg = bg })
+    vim.api.nvim_set_hl(0, "BufferLineModified", { fg = palette.yellow, bg = bg })
+    vim.api.nvim_set_hl(0, "BufferLineModifiedVisible", { fg = palette.yellow, bg = bg })
+    vim.api.nvim_set_hl(0, "BufferLineCloseButton", { fg = palette.bar_faded_text, bg = bg })
+    vim.api.nvim_set_hl(0, "BufferLineCloseButtonVisible", { fg = palette.bar_faded_text, bg = bg })
+    vim.api.nvim_set_hl(0, "BufferLineIndicatorVisible", { fg = palette.thin_line, bg = bg })
+    vim.api.nvim_set_hl(0, "BufferLineError", { fg = palette.bar_faded_text, bg = bg })
+    vim.api.nvim_set_hl(0, "BufferLineErrorVisible", { fg = palette.bar_faded_text, bg = bg })
+    vim.api.nvim_set_hl(0, "BufferLineWarning", { fg = palette.bar_faded_text, bg = bg })
+    vim.api.nvim_set_hl(0, "BufferLineWarningVisible", { fg = palette.bar_faded_text, bg = bg })
+    vim.api.nvim_set_hl(0, "BufferLineInfo", { fg = palette.bar_faded_text, bg = bg })
+    vim.api.nvim_set_hl(0, "BufferLineInfoVisible", { fg = palette.bar_faded_text, bg = bg })
+    vim.api.nvim_set_hl(0, "BufferLineHint", { fg = palette.bar_faded_text, bg = bg })
+    vim.api.nvim_set_hl(0, "BufferLineHintVisible", { fg = palette.bar_faded_text, bg = bg })
+    vim.api.nvim_set_hl(0, "BufferLineErrorDiagnostic", { fg = palette.red, bg = bg })
+    vim.api.nvim_set_hl(0, "BufferLineErrorDiagnosticVisible", { fg = palette.red, bg = bg })
+    vim.api.nvim_set_hl(0, "BufferLineWarningDiagnostic", { fg = palette.yellow, bg = bg })
+    vim.api.nvim_set_hl(0, "BufferLineWarningDiagnosticVisible", { fg = palette.yellow, bg = bg })
+    vim.api.nvim_set_hl(0, "BufferLineInfoDiagnostic", { fg = palette.blue, bg = bg })
+    vim.api.nvim_set_hl(0, "BufferLineInfoDiagnosticVisible", { fg = palette.blue, bg = bg })
+    vim.api.nvim_set_hl(0, "BufferLineHintDiagnostic", { fg = palette.silver, bg = bg })
+    vim.api.nvim_set_hl(0, "BufferLineHintDiagnosticVisible", { fg = palette.silver, bg = bg })
+    vim.api.nvim_set_hl(0, "BufferLineDuplicate", { fg = palette.faded_text, bg = bg, italic = true })
+    vim.api.nvim_set_hl(0, "BufferLineDuplicateVisible", { fg = palette.faded_text, bg = bg, italic = true })
+
+    patch_bufferline_devicons(bg, sel_bg)
+  end
+
+  -- Apply bufferline inactive highlights once for both variants
+  apply_bufferline_inactive_highlights(bufferline_bg_code)
+
   if is_vintage_variant then
     vim.api.nvim_exec_autocmds("User", { pattern = "ThemeApplied" })
     return
   end
+
+  -- Moon variant: dynamic context switching (markdown gets solid bg, code gets transparent)
 
   local function set_window_context_highlights(win, is_markdown)
     if not vim.api.nvim_win_is_valid(win) then
@@ -501,58 +535,11 @@ function M.apply(palette, variant, scheme_name)
     end
   end
 
-  local function patch_bufferline_devicons(inactive_bg, selected_bg)
-    local all_hls = vim.api.nvim_get_hl(0, {})
-    for name, hl in pairs(all_hls) do
-      if name:match("^BufferLineDevIcon") then
-        local is_selected = name:match("Selected$")
-        local target_bg = is_selected and selected_bg or inactive_bg
-        if hl.fg then
-          vim.api.nvim_set_hl(0, name, { fg = hl.fg, bg = target_bg, bold = hl.bold, italic = hl.italic })
-        end
-      end
-    end
-  end
-
-  local function apply_bufferline_context_for_buffer(buf)
-    local is_markdown = vim.bo[buf].filetype == "markdown"
-    local bg = is_markdown and bufferline_bg_markdown or bufferline_bg_code
-    local sel_bg = tostring(bufferline_selected_bg)
-
-    vim.api.nvim_set_hl(0, "BufferLineFill", { bg = bg })
-    vim.api.nvim_set_hl(0, "BufferLineBackground", { bg = bg })
-    vim.api.nvim_set_hl(0, "BufferLineBufferVisible", { fg = palette.bar_faded_text, bg = bg })
-    vim.api.nvim_set_hl(0, "BufferLineSeparator", { fg = palette.thin_line, bg = bg })
-    vim.api.nvim_set_hl(0, "BufferLineSeparatorVisible", { fg = palette.thin_line, bg = bg })
-    vim.api.nvim_set_hl(0, "BufferLineModified", { fg = palette.yellow, bg = bg })
-    vim.api.nvim_set_hl(0, "BufferLineModifiedVisible", { fg = palette.yellow, bg = bg })
-    vim.api.nvim_set_hl(0, "BufferLineCloseButton", { fg = palette.bar_faded_text, bg = bg })
-    vim.api.nvim_set_hl(0, "BufferLineCloseButtonVisible", { fg = palette.bar_faded_text, bg = bg })
-    vim.api.nvim_set_hl(0, "BufferLineError", { fg = palette.bar_faded_text, bg = bg })
-    vim.api.nvim_set_hl(0, "BufferLineErrorVisible", { fg = palette.bar_faded_text, bg = bg })
-    vim.api.nvim_set_hl(0, "BufferLineWarning", { fg = palette.bar_faded_text, bg = bg })
-    vim.api.nvim_set_hl(0, "BufferLineWarningVisible", { fg = palette.bar_faded_text, bg = bg })
-    vim.api.nvim_set_hl(0, "BufferLineInfo", { fg = palette.bar_faded_text, bg = bg })
-    vim.api.nvim_set_hl(0, "BufferLineInfoVisible", { fg = palette.bar_faded_text, bg = bg })
-    vim.api.nvim_set_hl(0, "BufferLineHint", { fg = palette.bar_faded_text, bg = bg })
-    vim.api.nvim_set_hl(0, "BufferLineHintVisible", { fg = palette.bar_faded_text, bg = bg })
-    vim.api.nvim_set_hl(0, "BufferLineErrorDiagnostic", { fg = palette.red, bg = bg })
-    vim.api.nvim_set_hl(0, "BufferLineErrorDiagnosticVisible", { fg = palette.red, bg = bg })
-    vim.api.nvim_set_hl(0, "BufferLineWarningDiagnostic", { fg = palette.yellow, bg = bg })
-    vim.api.nvim_set_hl(0, "BufferLineWarningDiagnosticVisible", { fg = palette.yellow, bg = bg })
-    vim.api.nvim_set_hl(0, "BufferLineInfoDiagnostic", { fg = palette.blue, bg = bg })
-    vim.api.nvim_set_hl(0, "BufferLineInfoDiagnosticVisible", { fg = palette.blue, bg = bg })
-    vim.api.nvim_set_hl(0, "BufferLineHintDiagnostic", { fg = palette.silver, bg = bg })
-    vim.api.nvim_set_hl(0, "BufferLineHintDiagnosticVisible", { fg = palette.silver, bg = bg })
-    vim.api.nvim_set_hl(0, "BufferLineDuplicate", { fg = palette.faded_text, bg = bg, italic = true })
-    vim.api.nvim_set_hl(0, "BufferLineDuplicateVisible", { fg = palette.faded_text, bg = bg, italic = true })
-
-    patch_bufferline_devicons(bg, sel_bg)
-  end
-
   local function apply_buffer_context(buf)
     apply_window_context_for_buffer(buf)
-    apply_bufferline_context_for_buffer(buf)
+    local is_markdown = vim.bo[buf].filetype == "markdown"
+    local bg = is_markdown and bufferline_bg_markdown or bufferline_bg_code
+    apply_bufferline_inactive_highlights(bg)
   end
 
   local md_bg_group = vim.api.nvim_create_augroup("HomesickMarkdownBackground", { clear = true })
@@ -567,7 +554,6 @@ function M.apply(palette, variant, scheme_name)
   for _, win in ipairs(vim.api.nvim_list_wins()) do
     apply_window_context_for_buffer(vim.api.nvim_win_get_buf(win))
   end
-  apply_bufferline_context_for_buffer(vim.api.nvim_get_current_buf())
 
   vim.api.nvim_exec_autocmds("User", { pattern = "ThemeApplied" })
 end

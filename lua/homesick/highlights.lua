@@ -76,7 +76,7 @@ function M.apply(palette, variant, scheme_name)
   local statusline_bg = is_vintage_variant and color.bar_bg or color.lualine_bg
   local bufferline_selected_fg = is_vintage_variant and color.yellow or color.text
   local bufferline_selected_icon_fg = is_vintage_variant and color.warmsilver or color.text
-  local bufferline_selected_bg_value = "NONE"
+  local bufferline_selected_bg_value = bufferline_selected_bg
   local bufferline_selected_italic = not is_vintage_variant
 
   -- stylua: ignore start
@@ -244,6 +244,23 @@ function M.apply(palette, variant, scheme_name)
       BufferLineHintDiagnostic { fg = color.silver, bg = "NONE" },
       BufferLineHintDiagnosticVisible { fg = color.silver, bg = "NONE" },
       BufferLineHintDiagnosticSelected { fg = color.silver, bg = bufferline_selected_bg_value },
+
+      BufferLineBufferVisible { fg = color.bar_faded_text, bg = "NONE" },
+
+      BufferLineSeparator { fg = color.thin_line, bg = "NONE" },
+      BufferLineSeparatorSelected { fg = color.thin_line, bg = bufferline_selected_bg_value },
+      BufferLineSeparatorVisible { fg = color.thin_line, bg = "NONE" },
+
+      BufferLineModified { fg = color.yellow, bg = "NONE" },
+      BufferLineModifiedSelected { fg = color.yellow, bg = bufferline_selected_bg_value },
+      BufferLineModifiedVisible { fg = color.yellow, bg = "NONE" },
+
+      BufferLineCloseButton { fg = color.bar_faded_text, bg = "NONE" },
+      BufferLineCloseButtonSelected { fg = color.bar_text, bg = bufferline_selected_bg_value },
+      BufferLineCloseButtonVisible { fg = color.bar_faded_text, bg = "NONE" },
+
+      BufferLineIndicatorSelected { fg = color.cyan, bg = bufferline_selected_bg_value },
+      BufferLineIndicatorVisible { fg = color.thin_line, bg = "NONE" },
 
       Title { fg = color.magenta, bold = true },
       VertSplit { fg = color.thin_line },
@@ -492,6 +509,13 @@ function M.apply(palette, variant, scheme_name)
 
     vim.api.nvim_set_hl(0, "BufferLineFill", { bg = bg })
     vim.api.nvim_set_hl(0, "BufferLineBackground", { bg = bg })
+    vim.api.nvim_set_hl(0, "BufferLineBufferVisible", { fg = palette.bar_faded_text, bg = bg })
+    vim.api.nvim_set_hl(0, "BufferLineSeparator", { fg = palette.thin_line, bg = bg })
+    vim.api.nvim_set_hl(0, "BufferLineSeparatorVisible", { fg = palette.thin_line, bg = bg })
+    vim.api.nvim_set_hl(0, "BufferLineModified", { fg = palette.yellow, bg = bg })
+    vim.api.nvim_set_hl(0, "BufferLineModifiedVisible", { fg = palette.yellow, bg = bg })
+    vim.api.nvim_set_hl(0, "BufferLineCloseButton", { fg = palette.bar_faded_text, bg = bg })
+    vim.api.nvim_set_hl(0, "BufferLineCloseButtonVisible", { fg = palette.bar_faded_text, bg = bg })
   end
 
   local function apply_buffer_context(buf)

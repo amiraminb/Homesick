@@ -491,8 +491,51 @@ function M.apply(palette, variant, scheme_name)
     local is_markdown = vim.bo[buf].filetype == "markdown"
     local bg = is_markdown and bufferline_bg_markdown or bufferline_bg_code
 
+    local function set_bg_preserve(group, value)
+      local ok, hl = pcall(vim.api.nvim_get_hl, 0, { name = group, link = false })
+      hl = (ok and type(hl) == "table") and hl or {}
+      hl.bg = value
+      vim.api.nvim_set_hl(0, group, hl)
+    end
+
     vim.api.nvim_set_hl(0, "BufferLineFill", { bg = bg })
     vim.api.nvim_set_hl(0, "BufferLineBackground", { bg = bg })
+
+    local groups = {
+      "BufferLineBufferSelected",
+      "BufferLineDuplicateSelected",
+      "BufferLineErrorSelected",
+      "BufferLineWarningSelected",
+      "BufferLineInfoSelected",
+      "BufferLineHintSelected",
+      "BufferLineErrorDiagnosticSelected",
+      "BufferLineWarningDiagnosticSelected",
+      "BufferLineInfoDiagnosticSelected",
+      "BufferLineHintDiagnosticSelected",
+      "BufferLineBufferVisible",
+      "BufferLineDuplicateVisible",
+      "BufferLineErrorDiagnosticVisible",
+      "BufferLineWarningDiagnosticVisible",
+      "BufferLineInfoDiagnosticVisible",
+      "BufferLineHintDiagnosticVisible",
+      "BufferLineTab",
+      "BufferLineTabSelected",
+      "BufferLineTabClose",
+      "BufferLineIndicatorSelected",
+      "BufferLineSeparator",
+      "BufferLineSeparatorVisible",
+      "BufferLineSeparatorSelected",
+    }
+
+    for _, group in ipairs(groups) do
+      set_bg_preserve(group, bg)
+    end
+
+    for _, group in ipairs(vim.fn.getcompletion("BufferLineDevIcon", "highlight")) do
+      if group:match("Selected$") or group:match("Visible$") then
+        set_bg_preserve(group, bg)
+      end
+    end
   end
 
   local function apply_buffer_context(buf)
@@ -506,6 +549,8 @@ function M.apply(palette, variant, scheme_name)
     callback = function(args)
       local buf = args.buf ~= 0 and args.buf or vim.api.nvim_get_current_buf()
       apply_buffer_context(buf)
+      vim.schedule(apply_bufferline_context_for_current_buffer)
+      vim.defer_fn(apply_bufferline_context_for_current_buffer, 20)
     end,
   })
 

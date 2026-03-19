@@ -22,7 +22,7 @@ Homesick is a Neovim colorscheme with two built-in variants:
 
 Use any of these:
 
-- `:colorscheme homesick` (defaults to moon)
+- `:colorscheme homesick` (defaults to night)
 - `:colorscheme homesick-moon`
 - `:colorscheme homesick-night`
 
@@ -32,6 +32,8 @@ Or from Lua:
 require("homesick").setup({ variant = "night" })
 require("homesick").load()
 ```
+
+`night` is the plugin default when no variant is specified.
 
 You can also set:
 

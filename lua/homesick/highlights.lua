@@ -50,7 +50,7 @@ function M.apply(palette, variant, scheme_name)
   local rp_bg = lush.hsl("#1A1E2A")
   local code_bg = is_vintage_variant and color.bg or "NONE"
   local markdown_bg = color.bg
-  local markdown_cursorline_bg = color.bg.lighten(4)
+  local markdown_cursorline_bg = is_vintage_variant and color.bg.lighten(4) or lush.hsl("#3F3F5B")
   local cursorline_code_bg = markdown_cursorline_bg
   local bufferline_selected_bg = color.bg.lighten(8)
   local bufferline_bg_markdown = palette.bg

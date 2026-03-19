@@ -545,6 +545,8 @@ function M.apply(palette, variant, scheme_name)
     vim.api.nvim_set_hl(0, "BufferLineInfoDiagnosticVisible", { fg = palette.blue, bg = bg })
     vim.api.nvim_set_hl(0, "BufferLineHintDiagnostic", { fg = palette.silver, bg = bg })
     vim.api.nvim_set_hl(0, "BufferLineHintDiagnosticVisible", { fg = palette.silver, bg = bg })
+    vim.api.nvim_set_hl(0, "BufferLineDuplicate", { fg = palette.faded_text, bg = bg, italic = true })
+    vim.api.nvim_set_hl(0, "BufferLineDuplicateVisible", { fg = palette.faded_text, bg = bg, italic = true })
 
     patch_bufferline_devicons(bg, sel_bg)
   end

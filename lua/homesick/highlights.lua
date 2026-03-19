@@ -487,9 +487,7 @@ function M.apply(palette, variant, scheme_name)
   end
 
   local function apply_bufferline_context_for_current_buffer()
-    local buf = vim.api.nvim_get_current_buf()
-    local is_markdown = vim.bo[buf].filetype == "markdown"
-    local bg = is_markdown and bufferline_bg_markdown or bufferline_bg_code
+    local bg = palette.bg
 
     local function set_bg_preserve(group, value)
       local ok, hl = pcall(vim.api.nvim_get_hl, 0, { name = group, link = false })
@@ -550,7 +548,6 @@ function M.apply(palette, variant, scheme_name)
       local buf = args.buf ~= 0 and args.buf or vim.api.nvim_get_current_buf()
       apply_buffer_context(buf)
       vim.schedule(apply_bufferline_context_for_current_buffer)
-      vim.defer_fn(apply_bufferline_context_for_current_buffer, 20)
     end,
   })
 

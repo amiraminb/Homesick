@@ -14,7 +14,7 @@ function M.apply(palette, variant, scheme_name)
   vim.g.colors_name = scheme_name or ("homesick-" .. (variant or "moon"))
 
   local lush = require("lush")
-  local is_vintage_variant = variant == "night"
+  local is_night = variant == "night"
 
   vim.o.background = "dark"
 
@@ -42,51 +42,51 @@ function M.apply(palette, variant, scheme_name)
     color[key] = lush.hsl(value)
   end
 
-  -- Rosé Pine accent colors (moon variant syntax uses these)
-  local rp = {
-    text = color.rp_text or color.text,
-    love = color.rp_love or color.red,
-    gold = color.rp_gold or color.yellow,
+  -- Moon variant accent colors
+  local moon = {
+    text = color.moon_text or color.text,
+    love = color.moon_love or color.red,
+    gold = color.moon_gold or color.yellow,
     rose = color.rose,
     pine = color.blue,
     foam = color.cyan,
-    iris = color.rp_iris or color.purple,
+    iris = color.moon_iris or color.purple,
     subtle = color.strong_text,
   }
 
-  local use_rosepine_syntax = not is_vintage_variant
+  local use_moon_syntax = not is_night
 
-  local function sx(legacy, rosepine)
-    return use_rosepine_syntax and rosepine or legacy
+  local function pick_syntax(night, moon)
+    return use_moon_syntax and moon or night
   end
 
   -- Build context table for theme module
   local ctx = {
     color = color,
-    rp = rp,
-    sx = sx,
-    use_rosepine_syntax = use_rosepine_syntax,
-    is_vintage_variant = is_vintage_variant,
-    code_bg = is_vintage_variant and color.bg or "NONE",
+    moon = moon,
+    pick_syntax = pick_syntax,
+    use_moon_syntax = use_moon_syntax,
+    is_night = is_night,
+    code_bg = is_night and color.bg or "NONE",
     markdown_bg = color.bg,
-    markdown_cursorline_bg = is_vintage_variant and color.bg.lighten(4) or color.markdown_cursorline,
-    cursorline_code_bg = is_vintage_variant and color.bg.lighten(4) or color.markdown_cursorline,
-    function_color = is_vintage_variant and color.softteal or sx(color.rose, rp.rose),
-    cursorcolumn_bg = is_vintage_variant and color.bg.lighten(20) or (color.rp_bg or color.bg).lighten(12),
-    colorcolumn_bg = is_vintage_variant and color.thin_line or color.lualine_bg,
-    qf_currentline_fg = is_vintage_variant and color.rose or color.redrose,
-    statusline_bg = is_vintage_variant and color.bar_bg or color.lualine_bg,
-    legacy_comment = is_vintage_variant and color.faded_text or color.comment,
-    legacy_identifier = is_vintage_variant and color.softcream.desaturate(10).darken(5) or color.text,
-    legacy_operator = is_vintage_variant and color.rose or color.operator_alt,
-    legacy_keyword = is_vintage_variant and color.redrose or color.operator_alt,
-    legacy_number = is_vintage_variant and color.yellow or color.number,
-    legacy_type = is_vintage_variant and color.softblue or color.type_text,
-    underlined_fg = use_rosepine_syntax and rp.iris or nil,
+    markdown_cursorline_bg = is_night and color.bg.lighten(4) or color.markdown_cursorline,
+    cursorline_code_bg = is_night and color.bg.lighten(4) or color.markdown_cursorline,
+    function_color = is_night and color.softteal or pick_syntax(color.rose, moon.rose),
+    cursorcolumn_bg = is_night and color.bg.lighten(20) or (color.moon_bg or color.bg).lighten(12),
+    colorcolumn_bg = is_night and color.thin_line or color.lualine_bg,
+    qf_currentline_fg = is_night and color.rose or color.redrose,
+    statusline_bg = is_night and color.bar_bg or color.lualine_bg,
+    night_comment = is_night and color.faded_text or color.comment,
+    night_identifier = is_night and color.softcream.desaturate(10).darken(5) or color.text,
+    night_operator = is_night and color.rose or color.operator_alt,
+    night_keyword = is_night and color.redrose or color.operator_alt,
+    night_number = is_night and color.yellow or color.number,
+    night_type = is_night and color.softblue or color.type_text,
+    underlined_fg = use_moon_syntax and moon.iris or nil,
     bufferline_selected_bg = color.bg.lighten(8),
-    bufferline_selected_fg = is_vintage_variant and color.yellow or color.text,
-    bufferline_selected_icon_fg = is_vintage_variant and color.warmsilver or color.text,
-    bufferline_selected_italic = not is_vintage_variant,
+    bufferline_selected_fg = is_night and color.yellow or color.text,
+    bufferline_selected_icon_fg = is_night and color.warmsilver or color.text,
+    bufferline_selected_italic = not is_night,
   }
 
   -- Apply lush theme
@@ -94,10 +94,10 @@ function M.apply(palette, variant, scheme_name)
 
   -- Apply bufferline inactive highlights (both variants)
   local bufferline = require("homesick.highlights.bufferline")
-  local bufferline_bg_code = is_vintage_variant and palette.bg or "NONE"
+  local bufferline_bg_code = is_night and palette.bg or "NONE"
   bufferline.apply_inactive(palette, ctx.bufferline_selected_bg, bufferline_bg_code)
 
-  if is_vintage_variant then
+  if is_night then
     vim.api.nvim_exec_autocmds("User", { pattern = "ThemeApplied" })
     return
   end

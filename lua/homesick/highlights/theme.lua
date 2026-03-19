@@ -5,10 +5,10 @@
 local function build(ctx)
   local lush = require("lush")
   local color = ctx.color
-  local rp = ctx.rp
-  local sx = ctx.sx
-  local use_rosepine_syntax = ctx.use_rosepine_syntax
-  local is_vintage_variant = ctx.is_vintage_variant
+  local moon = ctx.moon
+  local pick_syntax = ctx.pick_syntax
+  local use_moon_syntax = ctx.use_moon_syntax
+  local is_night = ctx.is_night
 
   -- stylua: ignore start
   local theme = lush(function(fn)
@@ -20,65 +20,65 @@ local function build(ctx)
       HyperMarkdownNormal { fg = color.text, bg = ctx.markdown_bg },
       HyperMarkdownNormalNC { fg = color.text, bg = ctx.markdown_bg },
       HyperMarkdownCursorLine { bg = ctx.markdown_cursorline_bg },
-      Comment { fg = sx(ctx.legacy_comment, rp.subtle), italic = use_rosepine_syntax },
+      Comment { fg = pick_syntax(ctx.night_comment, moon.subtle), italic = use_moon_syntax },
 
-      Constant { fg = sx(color.silver, rp.gold) },
-      String { fg = sx(color.purple, rp.gold) },
-      Character { fg = sx(color.teal, rp.gold) },
-      Number { fg = sx(ctx.legacy_number, rp.gold) },
-      Boolean { fg = sx(color.yellow, rp.rose) },
-      Float { fg = sx(color.yellow, rp.gold) },
+      Constant { fg = pick_syntax(color.silver, moon.gold) },
+      String { fg = pick_syntax(color.purple, moon.gold) },
+      Character { fg = pick_syntax(color.teal, moon.gold) },
+      Number { fg = pick_syntax(ctx.night_number, moon.gold) },
+      Boolean { fg = pick_syntax(color.yellow, moon.rose) },
+      Float { fg = pick_syntax(color.yellow, moon.gold) },
 
-      Identifier { fg = sx(ctx.legacy_identifier, rp.text) },
+      Identifier { fg = pick_syntax(ctx.night_identifier, moon.text) },
       Function { fg = ctx.function_color },
 
-      Statement { fg = sx(color.purple, rp.pine), bold = use_rosepine_syntax },
-      Operator { fg = sx(ctx.legacy_operator, rp.subtle) },
-      Keyword { fg = sx(ctx.legacy_keyword, rp.pine) },
+      Statement { fg = pick_syntax(color.purple, moon.pine), bold = use_moon_syntax },
+      Operator { fg = pick_syntax(ctx.night_operator, moon.subtle) },
+      Keyword { fg = pick_syntax(ctx.night_keyword, moon.pine) },
 
-      PreProc { fg = sx(color.magenta, rp.iris) },
-      Include { fg = sx(color.blue, rp.pine), bold = not use_rosepine_syntax },
-      Macro { fg = sx(color.orange, rp.iris) },
+      PreProc { fg = pick_syntax(color.magenta, moon.iris) },
+      Include { fg = pick_syntax(color.blue, moon.pine), bold = not use_moon_syntax },
+      Macro { fg = pick_syntax(color.orange, moon.iris) },
 
-      Type { fg = sx(ctx.legacy_type, rp.foam), bold = not use_rosepine_syntax },
+      Type { fg = pick_syntax(ctx.night_type, moon.foam), bold = not use_moon_syntax },
       Typedef { Type },
 
-      Special { fg = sx(color.silver, rp.foam) },
-      Delimiter { fg = sx(color.faded_text, rp.subtle) },
+      Special { fg = pick_syntax(color.silver, moon.foam) },
+      Delimiter { fg = pick_syntax(color.faded_text, moon.subtle) },
       Underlined { fg = ctx.underlined_fg, gui = "underline" },
 
       sym"@comment" { Comment },
       sym"@constant" { Constant },
-      sym"@constant.builtin" { fg = sx(color.yellow, rp.gold), bold = use_rosepine_syntax },
+      sym"@constant.builtin" { fg = pick_syntax(color.yellow, moon.gold), bold = use_moon_syntax },
       sym"@constant.macro" { Constant },
       sym"@macro" { Macro },
       sym"@string" { String },
-      sym"@string.escape" { fg = sx(ctx.legacy_operator, rp.pine) },
+      sym"@string.escape" { fg = pick_syntax(ctx.night_operator, moon.pine) },
       sym"@character" { Character },
       sym"@number" { Number },
       sym"@boolean" { Boolean },
       sym"@float" { Float },
       sym"@function" { Function },
-      sym"@function.builtin" { fg = sx(color.redrose, rp.rose), bold = use_rosepine_syntax },
+      sym"@function.builtin" { fg = pick_syntax(color.redrose, moon.rose), bold = use_moon_syntax },
       sym"@function.macro" { Function },
-      sym"@field" { fg = sx(Identifier.fg, rp.foam) },
-      sym"@property" { fg = sx(Identifier.fg, rp.foam), italic = use_rosepine_syntax },
+      sym"@field" { fg = pick_syntax(Identifier.fg, moon.foam) },
+      sym"@property" { fg = pick_syntax(Identifier.fg, moon.foam), italic = use_moon_syntax },
       sym"@constructor" { Special },
       sym"@operator" { Operator },
       sym"@keyword" { Keyword },
-      sym"@variable" { fg = sx(Identifier.fg, rp.text), italic = use_rosepine_syntax },
-      sym"@variable.builtin" { fg = sx(color.redrose, rp.love), italic = use_rosepine_syntax, bold = use_rosepine_syntax },
-      sym"@variable.parameter" { fg = sx(Identifier.fg, rp.iris), italic = use_rosepine_syntax },
-      sym"@variable.member" { fg = sx(Identifier.fg, rp.foam) },
+      sym"@variable" { fg = pick_syntax(Identifier.fg, moon.text), italic = use_moon_syntax },
+      sym"@variable.builtin" { fg = pick_syntax(color.redrose, moon.love), italic = use_moon_syntax, bold = use_moon_syntax },
+      sym"@variable.parameter" { fg = pick_syntax(Identifier.fg, moon.iris), italic = use_moon_syntax },
+      sym"@variable.member" { fg = pick_syntax(Identifier.fg, moon.foam) },
       sym"@type" { Type },
       sym"@type.definition" { Typedef },
-      sym"@type.builtin" { fg = sx(Type.fg, rp.foam), bold = use_rosepine_syntax },
+      sym"@type.builtin" { fg = pick_syntax(Type.fg, moon.foam), bold = use_moon_syntax },
       sym"@type.qualifier" { Type },
       sym"@include" { Include },
-      sym"@module" { fg = sx(color.redrose, rp.text) },
-      sym"@namespace" { fg = sx(color.redrose, rp.text) },
-      sym"@attribute" { fg = sx(color.magenta, rp.iris) },
-      sym"@attribute.builtin" { fg = sx(color.magenta, rp.iris), bold = use_rosepine_syntax },
+      sym"@module" { fg = pick_syntax(color.redrose, moon.text) },
+      sym"@namespace" { fg = pick_syntax(color.redrose, moon.text) },
+      sym"@attribute" { fg = pick_syntax(color.magenta, moon.iris) },
+      sym"@attribute.builtin" { fg = pick_syntax(color.magenta, moon.iris), bold = use_moon_syntax },
 
       Conceal { fg = color.faded_text },
       Cursor { reverse = true },
@@ -142,7 +142,7 @@ local function build(ctx)
       NonText { fg = color.faded_text },
 
       NormalFloat { fg = color.text, bg = color.float_bg },
-      Pmenu { fg = color.text, bg = is_vintage_variant and color.bg.lighten(3) or color.pmenu_bg },
+      Pmenu { fg = color.text, bg = is_night and color.bg.lighten(3) or color.pmenu_bg },
       PmenuSel { fg = color.text, bg = color.purple.mix(color.bg, 70), bold = true },
       PmenuSbar { bg = Pmenu.bg.lighten(5) },
       PmenuThumb { bg = Pmenu.bg.lighten(15) },
@@ -347,7 +347,7 @@ local function build(ctx)
       sym"@lsp.type.struct" { Type },
       sym"@lsp.type.interface" { Type },
       sym"@lsp.type.typeParameter" { Type },
-      sym"@lsp.type.namespace" { fg = sx(is_vintage_variant and color.rose or color.redrose, rp.text) },
+      sym"@lsp.type.namespace" { fg = pick_syntax(is_night and color.rose or color.redrose, moon.text) },
       sym"@lsp.type.variable" { Identifier },
       sym"@lsp.type.property" { Identifier },
       sym"@lsp.type.parameter" { Identifier },

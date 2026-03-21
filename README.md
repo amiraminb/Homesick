@@ -73,3 +73,15 @@ for group, spec in pairs(require("homesick.plugins.cmp").get(variant)) do
   vim.api.nvim_set_hl(0, group, spec)
 end
 ```
+
+### vim-illuminate
+
+Homesick provides an explicit illuminate integration map.
+
+```lua
+local variant = vim.g.homesick_variant or "moon"
+
+for group, spec in pairs(require("homesick.plugins.illuminate").get(variant)) do
+  vim.api.nvim_set_hl(0, group, spec)
+end
+```

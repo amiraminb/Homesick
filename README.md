@@ -97,3 +97,17 @@ for group, spec in pairs(require("homesick.plugins.blink").get(variant)) do
   vim.api.nvim_set_hl(0, group, spec)
 end
 ```
+
+### lualine
+
+Homesick provides a dedicated `lualine` theme table.
+
+```lua
+local variant = vim.g.homesick_variant or "moon"
+
+require("lualine").setup({
+  options = {
+    theme = require("homesick.plugins.lualine").get(variant),
+  },
+})
+```

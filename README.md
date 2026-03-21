@@ -13,6 +13,8 @@ Homesick is a Neovim colorscheme with three built-in variants:
 ### Galaxy
 *Night UI surfaces with Moon syntax colors.*
 
+![galaxy](screenshots/galaxy)
+
 ## Install (lazy.nvim)
 
 ```lua

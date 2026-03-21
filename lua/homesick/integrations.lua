@@ -6,6 +6,10 @@ local defaults = {
   illuminate = true,
   telescope = true,
   nvimtree = true,
+  trouble = true,
+  gitsigns = true,
+  snacks = true,
+  diffview = true,
 }
 
 local function current_variant()
@@ -40,6 +44,18 @@ function M.apply(opts)
   end
   if cfg.nvimtree then
     apply_groups(require("homesick.plugins.nvimtree").get)
+  end
+  if cfg.trouble then
+    apply_groups(require("homesick.plugins.trouble").get)
+  end
+  if cfg.gitsigns then
+    apply_groups(require("homesick.plugins.gitsigns").get)
+  end
+  if cfg.snacks then
+    apply_groups(require("homesick.plugins.snacks").get)
+  end
+  if cfg.diffview then
+    apply_groups(require("homesick.plugins.diffview").get)
   end
 end
 

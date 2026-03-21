@@ -103,31 +103,6 @@ local function build(ctx)
       DiffDelete { bg = color.diff_delete, fg = "NONE" },
       DiffText { bg = color.diff_text, fg = "NONE" },
 
-      DiffviewStatusAdded { fg = color.green },
-      DiffviewStatusModified { fg = color.blue },
-      DiffviewStatusRenamed { fg = color.purple },
-      DiffviewStatusDeleted { fg = color.red },
-      DiffviewStatusUnmerged { fg = color.orange, bold = true },
-      DiffviewFilePanelInsertions { fg = color.green },
-      DiffviewFilePanelDeletions { fg = color.red },
-      DiffviewFilePanelTitle { fg = color.cyan, bold = true },
-      DiffviewFilePanelCounter { fg = color.faded_text },
-
-      GitSignsAdd { GitAdded },
-      GitSignsChange { GitChanged },
-      GitSignsDelete { GitDeleted },
-      GitSignsUntracked { GitUntracked },
-
-      GitSignsStagedAdd { fg = GitSignsAdd.fg.mix(color.bg, 70) },
-      GitSignsStagedChange { fg = GitSignsChange.fg.mix(color.bg, 70) },
-      GitSignsStagedDelete { fg = GitSignsDelete.fg.mix(color.bg, 70) },
-      GitSignsStagedUntracked { fg = GitSignsUntracked.fg.mix(color.bg, 70) },
-
-      GitSignsAddPreview { fg = color.green, bg = color.diff_add_bg },
-      GitSignsDeletePreview { fg = color.red, bg = color.diff_delete_bg },
-      GitSignsAddInline { bg = color.green.mix(color.bg, 50) },
-      GitSignsDeleteInline { bg = color.red.mix(color.bg, 50) },
-
       Folded { fg = color.faded_text, bg = ctx.code_bg.lighten(3) },
       FoldColumn { fg = color.text, bg = "NONE" },
       SignColumn { fg = color.text, bg = "NONE" },
@@ -246,71 +221,9 @@ local function build(ctx)
       FlashPrompt { bg = color.bar_bg },
       FlashPromptIcon { bg = color.bar_bg },
 
-      SnacksIndent { fg = color.faded_text.mix(color.bg, 80) },
-      SnacksIndentScope { fg = color.faded_text },
-
-      SnacksInputNormal { bg = color.float_bg },
-      SnacksInputBorder { fg = color.float_bg, bg = color.float_bg },
-      SnacksInputTitle { fg = color.faded_text, bg = color.float_bg },
-
-      SnacksPickerTitle { fg = color.faded_text, bg = color.float_bg },
-      SnacksPickerBorder { fg = color.thin_line.lighten(5), bg = color.float_bg },
-      SnacksPickerTotals { fg = color.faded_text },
-      SnacksPickerBufNr { fg = color.faded_text },
-      SnacksPickerDir { fg = color.faded_text },
-      SnacksPickerRow { fg = color.faded_text },
-      SnacksPickerCol { fg = color.faded_text },
-      SnacksPickerTree { fg = color.float_thin_line },
-      SnacksPickerSelected { fg = color.cyan },
-      SnacksPickerListCursorLine { bg = color.float_bg.lighten(6) },
-      SnacksPickerPreviewCursorLine { bg = color.float_bg.lighten(6) },
-      SnacksPickerMatch { fg = color.bg, bg = color.cyan },
-      SnacksPickerPathHidden { fg = color.text },
-
-      SnacksPickerGitStatusAdded { GitAdded },
-      SnacksPickerGitStatusModified { GitChanged },
-      SnacksPickerGitStatusStaged { GitStaged },
-      SnacksPickerGitStatusUntracked { GitUntracked },
-
-      SnacksTerminal { fg = color.text, bg = "NONE" },
-      SnacksTerminalHeader { bg = "NONE", fg = color.cyan, bold = true },
-      SnacksTerminalHeaderNC { bg = "NONE", fg = color.faded_text, bold = true },
-
       ToggleTerm { bg = "NONE" },
       ToggleTermNormal { bg = "NONE" },
       ToggleTermBorder { fg = color.faded_text, bg = "NONE" },
-
-      SnacksNotifierTrace { fg = color.text, bg = color.float_bg },
-      SnacksNotifierTitleTrace { fg = color.silver, bg = color.float_bg, bold = true },
-      SnacksNotifierBorderTrace { fg = color.float_thin_line, bg = color.float_bg },
-      SnacksNotifierIconTrace { fg = color.silver },
-
-      SnacksNotifierDebug { fg = color.text, bg = color.notify_debug_bg },
-      SnacksNotifierTitleDebug { fg = color.purple.lighten(15), bg = color.notify_debug_bg, bold = true },
-      SnacksNotifierBorderDebug { fg = color.purple.darken(20), bg = color.notify_debug_bg },
-      SnacksNotifierIconDebug { fg = color.purple },
-
-      SnacksNotifierInfo { fg = color.text, bg = color.notify_info_bg },
-      SnacksNotifierTitleInfo { fg = color.blue.lighten(20), bg = color.notify_info_bg, bold = true },
-      SnacksNotifierBorderInfo { fg = color.blue, bg = color.notify_info_bg },
-      SnacksNotifierIconInfo { fg = color.blue.lighten(10) },
-
-      SnacksNotifierWarn { fg = color.text, bg = color.notify_warn_bg },
-      SnacksNotifierTitleWarn { fg = color.yellow.lighten(10), bg = color.notify_warn_bg, bold = true },
-      SnacksNotifierBorderWarn { fg = color.yellow.darken(10), bg = color.notify_warn_bg },
-      SnacksNotifierIconWarn { fg = color.yellow },
-
-      SnacksNotifierError { fg = color.text, bg = color.notify_error_bg },
-      SnacksNotifierTitleError { fg = color.red.lighten(15), bg = color.notify_error_bg, bold = true },
-      SnacksNotifierBorderError { fg = color.red, bg = color.notify_error_bg },
-      SnacksNotifierIconError { fg = color.red.lighten(10) },
-
-      SnacksNotifierHistory { bg = color.float_bg },
-      SnacksNotifierHistoryTitle { fg = color.cyan, bold = true },
-      SnacksNotifierHistoryDateTime { fg = color.faded_text, italic = true },
-
-      TroubleDirectory { fg = color.charcoal },
-      TroubleFilename { fg = color.charcoal, bold = true },
 
       sym"@markup.raw" { fg = color.green },
       sym"@markup.raw.block" { fg = color.text },

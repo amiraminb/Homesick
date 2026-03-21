@@ -136,6 +136,54 @@ for group, spec in pairs(require("homesick.plugins.nvimtree").get(variant)) do
 end
 ```
 
+### trouble.nvim
+
+Homesick provides a dedicated `trouble.nvim` highlight map.
+
+```lua
+local variant = vim.g.homesick_variant or "moon"
+
+for group, spec in pairs(require("homesick.plugins.trouble").get(variant)) do
+  vim.api.nvim_set_hl(0, group, spec)
+end
+```
+
+### gitsigns.nvim
+
+Homesick provides a dedicated `gitsigns.nvim` highlight map.
+
+```lua
+local variant = vim.g.homesick_variant or "moon"
+
+for group, spec in pairs(require("homesick.plugins.gitsigns").get(variant)) do
+  vim.api.nvim_set_hl(0, group, spec)
+end
+```
+
+### snacks.nvim
+
+Homesick provides a dedicated `snacks.nvim` highlight map.
+
+```lua
+local variant = vim.g.homesick_variant or "moon"
+
+for group, spec in pairs(require("homesick.plugins.snacks").get(variant)) do
+  vim.api.nvim_set_hl(0, group, spec)
+end
+```
+
+### diffview.nvim
+
+Homesick provides a dedicated `diffview.nvim` highlight map.
+
+```lua
+local variant = vim.g.homesick_variant or "moon"
+
+for group, spec in pairs(require("homesick.plugins.diffview").get(variant)) do
+  vim.api.nvim_set_hl(0, group, spec)
+end
+```
+
 ### Auto-apply helper
 
 If you want `cmp`, `blink.cmp`, and `vim-illuminate` highlights to be applied automatically after each colorscheme load:
@@ -147,6 +195,10 @@ require("homesick.integrations").setup({
   illuminate = true,
   telescope = true,
   nvimtree = true,
+  trouble = true,
+  gitsigns = true,
+  snacks = true,
+  diffview = true,
 })
 ```
 

@@ -48,7 +48,9 @@ vim.g.homesick_variant = "night"
 
 before loading the colorscheme.
 
-## Bufferline integration
+## Integrations
+
+### Bufferline
 
 Homesick provides a dedicated bufferline highlight map.
 
@@ -58,4 +60,16 @@ local variant = vim.g.homesick_variant or "moon"
 require("bufferline").setup({
   highlights = require("homesick.plugins.bufferline").get(variant),
 })
+```
+
+### nvim-cmp
+
+Homesick also provides a dedicated `nvim-cmp` highlight map.
+
+```lua
+local variant = vim.g.homesick_variant or "moon"
+
+for group, spec in pairs(require("homesick.plugins.cmp").get(variant)) do
+  vim.api.nvim_set_hl(0, group, spec)
+end
 ```

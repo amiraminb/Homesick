@@ -11,6 +11,16 @@ local defaults = {
   snacks = true,
   diffview = true,
   render_markdown = true,
+  todo_comments = true,
+  flash = true,
+  git_conflict = true,
+  fidget = true,
+  toggleterm = true,
+  lspsaga = true,
+  dap = true,
+  rainbow_delimiters = true,
+  zenmode = true,
+  winshift = true,
 }
 
 local function current_variant()
@@ -60,6 +70,36 @@ function M.apply(opts)
   end
   if cfg.render_markdown then
     apply_groups(require("homesick.plugins.render_markdown").get)
+  end
+  if cfg.todo_comments then
+    apply_groups(require("homesick.plugins.todo_comments").get)
+  end
+  if cfg.flash then
+    apply_groups(require("homesick.plugins.flash").get)
+  end
+  if cfg.git_conflict then
+    apply_groups(require("homesick.plugins.git_conflict").get)
+  end
+  if cfg.fidget then
+    apply_groups(require("homesick.plugins.fidget").get)
+  end
+  if cfg.toggleterm then
+    apply_groups(require("homesick.plugins.toggleterm").get)
+  end
+  if cfg.lspsaga then
+    apply_groups(require("homesick.plugins.lspsaga").get)
+  end
+  if cfg.dap then
+    apply_groups(require("homesick.plugins.dap").get)
+  end
+  if cfg.rainbow_delimiters then
+    apply_groups(require("homesick.plugins.rainbow_delimiters").get)
+  end
+  if cfg.zenmode then
+    apply_groups(require("homesick.plugins.zenmode").get)
+  end
+  if cfg.winshift then
+    apply_groups(require("homesick.plugins.winshift").get)
   end
 end
 

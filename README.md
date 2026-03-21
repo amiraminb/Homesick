@@ -196,6 +196,86 @@ for group, spec in pairs(require("homesick.plugins.render_markdown").get(variant
 end
 ```
 
+### todo-comments.nvim
+
+```lua
+for group, spec in pairs(require("homesick.plugins.todo_comments").get(vim.g.homesick_variant or "moon")) do
+  vim.api.nvim_set_hl(0, group, spec)
+end
+```
+
+### flash.nvim
+
+```lua
+for group, spec in pairs(require("homesick.plugins.flash").get(vim.g.homesick_variant or "moon")) do
+  vim.api.nvim_set_hl(0, group, spec)
+end
+```
+
+### git-conflict.nvim
+
+```lua
+for group, spec in pairs(require("homesick.plugins.git_conflict").get(vim.g.homesick_variant or "moon")) do
+  vim.api.nvim_set_hl(0, group, spec)
+end
+```
+
+### fidget.nvim
+
+```lua
+for group, spec in pairs(require("homesick.plugins.fidget").get(vim.g.homesick_variant or "moon")) do
+  vim.api.nvim_set_hl(0, group, spec)
+end
+```
+
+### toggleterm.nvim
+
+```lua
+for group, spec in pairs(require("homesick.plugins.toggleterm").get(vim.g.homesick_variant or "moon")) do
+  vim.api.nvim_set_hl(0, group, spec)
+end
+```
+
+### lspsaga.nvim
+
+```lua
+for group, spec in pairs(require("homesick.plugins.lspsaga").get(vim.g.homesick_variant or "moon")) do
+  vim.api.nvim_set_hl(0, group, spec)
+end
+```
+
+### nvim-dap
+
+```lua
+for group, spec in pairs(require("homesick.plugins.dap").get(vim.g.homesick_variant or "moon")) do
+  vim.api.nvim_set_hl(0, group, spec)
+end
+```
+
+### rainbow-delimiters.nvim
+
+```lua
+for group, spec in pairs(require("homesick.plugins.rainbow_delimiters").get(vim.g.homesick_variant or "moon")) do
+  vim.api.nvim_set_hl(0, group, spec)
+end
+```
+
+### zen-mode.nvim
+
+```lua
+for group, spec in pairs(require("homesick.plugins.zenmode").get(vim.g.homesick_variant or "moon")) do
+  vim.api.nvim_set_hl(0, group, spec)
+end
+```
+
+### winshift.nvim
+
+```lua
+for group, spec in pairs(require("homesick.plugins.winshift").get(vim.g.homesick_variant or "moon")) do
+  vim.api.nvim_set_hl(0, group, spec)
+end
+```
+
 ### Auto-apply helper
 
 If you want Homesick integration highlights to be applied automatically after each colorscheme load:
@@ -212,6 +292,16 @@ require("homesick.integrations").setup({
   snacks = true,
   diffview = true,
   render_markdown = true,
+  todo_comments = true,
+  flash = true,
+  git_conflict = true,
+  fidget = true,
+  toggleterm = true,
+  lspsaga = true,
+  dap = true,
+  rainbow_delimiters = true,
+  zenmode = true,
+  winshift = true,
 })
 ```
 

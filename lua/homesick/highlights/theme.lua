@@ -185,46 +185,6 @@ local function build(ctx)
       FloatTitle { fg = color.faded_text, bg = color.float_bg, bold = true },
       FloatBorder { fg = color.faded_text, bg = color.float_bg },
 
-      FidgetNormal { fg = color.text, bg = "NONE" },
-      FidgetDone { fg = color.green, bg = "NONE" },
-      FidgetProgress { fg = color.yellow, bg = "NONE" },
-      FidgetGroup { fg = color.text, bg = "NONE", bold = true },
-      FidgetIcon { fg = color.cyan, bg = "NONE" },
-
-      TodoComment { fg = color.purple },
-      FixmeComment { fg = color.red },
-      HackComment { fg = color.yellow },
-      PriorityComment { fg = color.orange },
-
-      ZenBg { fg = color.text, bg = color.bg },
-      WinShiftMove { bg = color.bg.lighten(7) },
-
-      SagaWinbar { bg = "NONE" },
-      SagaWinbarFileName { fg = color.bar_text, bg = "NONE", bold = true },
-      SagaWinbarFolderName { fg = color.bar_faded_text, bg = "NONE" },
-      SagaWinbarSep { fg = color.bar_faded_text, bg = "NONE" },
-      SagaWinbarFileIcon { bg = "NONE" },
-      SagaWinbarModule { fg = color.bar_faded_text, bg = "NONE" },
-
-      GitConflictCurrent { bg = color.blue, bold = true },
-      GitConflictCurrentLabel { bg = color.blue, fg = color.cyan, bold = true },
-      GitConflictIncoming { bg = color.green, bold = true },
-      GitConflictIncomingLabel { bg = color.green, fg = color.bar_text, bold = true },
-      GitConflictAncestor { bg = color.purple, bold = true },
-      GitConflictAncestorLabel { bg = color.purple, fg = color.magenta, bold = true },
-
-      DapStoppedLine { bg = color.diff_add_bg },
-
-      FlashCurrent { fg = color.bg, bg = color.green, bold = true },
-      FlashMatch { fg = color.bg, bg = color.cyan },
-      FlashLabel { fg = color.bg, bg = color.purple, bold = true },
-      FlashPrompt { bg = color.bar_bg },
-      FlashPromptIcon { bg = color.bar_bg },
-
-      ToggleTerm { bg = "NONE" },
-      ToggleTermNormal { bg = "NONE" },
-      ToggleTermBorder { fg = color.faded_text, bg = "NONE" },
-
       sym"@markup.raw" { fg = color.green },
       sym"@markup.raw.block" { fg = color.text },
       sym"@markup.raw.delimiter" { fg = color.faded_text },
@@ -240,13 +200,6 @@ local function build(ctx)
       sym"@lsp.type.member" { Identifier },
 
       sym"@punctuation.bracket" { fg = color.cyan },
-      RainbowDelimiterRed { fg = color.red },
-      RainbowDelimiterYellow { fg = color.yellow },
-      RainbowDelimiterBlue { fg = color.blue },
-      RainbowDelimiterOrange { fg = color.orange },
-      RainbowDelimiterGreen { fg = color.green },
-      RainbowDelimiterViolet { fg = color.purple },
-      RainbowDelimiterCyan { fg = color.cyan },
     }
   end)
   -- stylua: ignore end

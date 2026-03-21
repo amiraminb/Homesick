@@ -1,5 +1,5 @@
 -- Homesick highlight orchestrator
--- Sets up color context, applies lush theme, and configures bufferline.
+-- Sets up color context and applies lush theme.
 
 local M = {}
 
@@ -82,19 +82,10 @@ function M.apply(palette, variant, scheme_name)
     night_number = is_night and color.yellow or color.number,
     night_type = is_night and color.softblue or color.type_text,
     underlined_fg = use_moon_syntax and moon.iris or nil,
-    bufferline_selected_bg = color.bg.lighten(8),
-    bufferline_selected_fg = is_night and color.yellow or color.text,
-    bufferline_selected_icon_fg = is_night and color.warmsilver or color.text,
-    bufferline_selected_italic = not is_night,
   }
 
   -- Apply lush theme
   require("homesick.highlights.theme")(ctx)
-
-  -- Apply bufferline inactive highlights (both variants)
-  local bufferline = require("homesick.highlights.bufferline")
-  local bufferline_bg_code = is_night and palette.bg or palette.moon_bg
-  bufferline.apply_inactive(palette, ctx.bufferline_selected_bg, bufferline_bg_code)
 
   vim.api.nvim_exec_autocmds("User", { pattern = "ThemeApplied" })
 end

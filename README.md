@@ -1,6 +1,6 @@
 # homesick.nvim
 
-Homesick is a Neovim colorscheme with two built-in variants:
+Homesick is a Neovim colorscheme with three built-in variants:
 
 ### Moon
 *Inspired by [Rosé Pine](https://github.com/rose-pine/neovim) with a darker, cooler base.*
@@ -9,6 +9,9 @@ Homesick is a Neovim colorscheme with two built-in variants:
 
 ### Night
 ![night](screenshots/night.png)
+
+### Galaxy
+*Night UI surfaces with Moon syntax colors.*
 
 ## Install (lazy.nvim)
 
@@ -30,6 +33,7 @@ Use any of these:
 - `:colorscheme homesick` (defaults to night)
 - `:colorscheme homesick-moon`
 - `:colorscheme homesick-night`
+- `:colorscheme homesick-galaxy`
 
 Or from Lua:
 

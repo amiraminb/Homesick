@@ -24,6 +24,13 @@ local defaults = {
 }
 
 local function current_variant()
+  local name = vim.g.colors_name
+  if type(name) == "string" then
+    local from_scheme = name:match("^homesick%-(moon|night|galaxy)$")
+    if from_scheme then
+      return from_scheme
+    end
+  end
   return vim.g.homesick_variant or "moon"
 end
 

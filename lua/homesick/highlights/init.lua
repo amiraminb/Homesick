@@ -14,7 +14,7 @@ function M.apply(palette, variant, scheme_name)
   vim.g.colors_name = scheme_name or ("homesick-" .. (variant or "moon"))
 
   local lush = require("lush")
-  local is_night = variant == "night"
+  local is_night = variant == "night" or variant == "galaxy"
 
   vim.o.background = "dark"
 
@@ -54,7 +54,7 @@ function M.apply(palette, variant, scheme_name)
     subtle = color.strong_text,
   }
 
-  local use_moon_syntax = not is_night
+  local use_moon_syntax = variant == "moon" or variant == "galaxy"
 
   local function pick_syntax(night, moon)
     return use_moon_syntax and moon or night
@@ -70,7 +70,7 @@ function M.apply(palette, variant, scheme_name)
     code_bg = is_night and color.bg or color.moon_bg,
     inactive_bg = is_night and color.bg or color.inactive_bg,
     cursorline_code_bg = is_night and color.bg.lighten(4) or color.markdown_cursorline,
-    function_color = is_night and color.softteal or pick_syntax(color.rose, moon.rose),
+    function_color = pick_syntax(color.softteal, moon.rose),
     cursorcolumn_bg = is_night and color.bg.lighten(20) or (color.moon_bg or color.bg).lighten(12),
     colorcolumn_bg = is_night and color.thin_line or color.lualine_bg,
     qf_currentline_fg = is_night and color.rose or color.redrose,

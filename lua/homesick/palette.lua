@@ -122,6 +122,13 @@ M.variants = {
   },
 }
 
+M.variants.galaxy = vim.tbl_extend("force", vim.deepcopy(M.variants.night), {
+  moon_text = M.variants.moon.moon_text,
+  moon_love = M.variants.moon.moon_love,
+  moon_gold = M.variants.moon.moon_gold,
+  moon_iris = M.variants.moon.moon_iris,
+})
+
 function M.get(variant)
   return vim.deepcopy(M.variants[variant] or M.variants.moon)
 end

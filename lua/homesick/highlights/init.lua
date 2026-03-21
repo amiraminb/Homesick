@@ -68,7 +68,7 @@ function M.apply(palette, variant, scheme_name)
     use_moon_syntax = use_moon_syntax,
     is_night = is_night,
     code_bg = is_night and color.bg or color.moon_bg,
-    inactive_bg = is_night and color.bg or color.inactive_bg,
+    inactive_bg = color.inactive_bg or color.bg,
     cursorline_code_bg = is_night and color.bg.lighten(4) or color.markdown_cursorline,
     function_color = pick_syntax(color.softteal, moon.rose),
     cursorcolumn_bg = is_night and color.bg.lighten(20) or (color.moon_bg or color.bg).lighten(12),

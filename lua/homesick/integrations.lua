@@ -4,6 +4,7 @@ local defaults = {
   cmp = true,
   blink = true,
   illuminate = true,
+  telescope = true,
 }
 
 local function current_variant()
@@ -32,6 +33,9 @@ function M.apply(opts)
   end
   if cfg.illuminate then
     apply_groups(require("homesick.plugins.illuminate").get)
+  end
+  if cfg.telescope then
+    apply_groups(require("homesick.plugins.telescope").get)
   end
 end
 

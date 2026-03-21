@@ -85,3 +85,15 @@ for group, spec in pairs(require("homesick.plugins.illuminate").get(variant)) do
   vim.api.nvim_set_hl(0, group, spec)
 end
 ```
+
+### blink.cmp
+
+Homesick provides a dedicated `blink.cmp` highlight map.
+
+```lua
+local variant = vim.g.homesick_variant or "moon"
+
+for group, spec in pairs(require("homesick.plugins.blink").get(variant)) do
+  vim.api.nvim_set_hl(0, group, spec)
+end
+```

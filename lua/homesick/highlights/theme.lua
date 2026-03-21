@@ -155,19 +155,23 @@ local function build(ctx)
       DiagnosticSignHint { fg = color.silver.lighten(20), bold = true },
       DiagnosticVirtualTextError {
         fg = color.red.mix(color.bg, is_night and 50 or 35),
-        bg = is_night and "NONE" or color.red.mix(color.bg, 90),
+        bg = "NONE",
+        italic = true,
       },
       DiagnosticVirtualTextWarn {
         fg = color.yellow.mix(color.bg, is_night and 50 or 35),
-        bg = is_night and "NONE" or color.yellow.mix(color.bg, 90),
+        bg = "NONE",
+        italic = true,
       },
       DiagnosticVirtualTextInfo {
         fg = color.blue.mix(color.bg, is_night and 50 or 35),
-        bg = is_night and "NONE" or color.blue.mix(color.bg, 90),
+        bg = "NONE",
+        italic = true,
       },
       DiagnosticVirtualTextHint {
         fg = color.silver.mix(color.bg, is_night and 60 or 42),
-        bg = is_night and "NONE" or color.silver.mix(color.bg, 92),
+        bg = "NONE",
+        italic = true,
       },
       DiagnosticVirtualLinesError { DiagnosticVirtualTextError },
       DiagnosticVirtualLinesWarn { DiagnosticVirtualTextWarn },

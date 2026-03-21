@@ -69,8 +69,6 @@ function M.apply(palette, variant, scheme_name)
     is_night = is_night,
     code_bg = is_night and color.bg or color.moon_bg,
     inactive_bg = is_night and color.bg or color.inactive_bg,
-    markdown_bg = color.bg,
-    markdown_cursorline_bg = is_night and color.bg.lighten(4) or color.markdown_cursorline,
     cursorline_code_bg = is_night and color.bg.lighten(4) or color.markdown_cursorline,
     function_color = is_night and color.softteal or pick_syntax(color.rose, moon.rose),
     cursorcolumn_bg = is_night and color.bg.lighten(20) or (color.moon_bg or color.bg).lighten(12),
@@ -95,17 +93,8 @@ function M.apply(palette, variant, scheme_name)
 
   -- Apply bufferline inactive highlights (both variants)
   local bufferline = require("homesick.highlights.bufferline")
-  local bufferline_bg_code = is_night and palette.bg or "NONE"
+  local bufferline_bg_code = is_night and palette.bg or palette.moon_bg
   bufferline.apply_inactive(palette, ctx.bufferline_selected_bg, bufferline_bg_code)
-
-  if is_night then
-    vim.api.nvim_exec_autocmds("User", { pattern = "ThemeApplied" })
-    return
-  end
-
-  -- Moon variant: dynamic context switching for markdown/code backgrounds
-  local bufferline_bg_markdown = palette.bg
-  bufferline.setup_context_switching(palette, ctx.bufferline_selected_bg, bufferline_bg_markdown, bufferline_bg_code)
 
   vim.api.nvim_exec_autocmds("User", { pattern = "ThemeApplied" })
 end

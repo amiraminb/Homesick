@@ -1,0 +1,17 @@
+# Neovim
+doc/tags
+
+# Lua
+luac.out
+*.lua.bak
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+*.swp
+*.swo
+*~
+.idea/
+.vscode/

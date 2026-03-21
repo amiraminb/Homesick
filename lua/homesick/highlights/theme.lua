@@ -17,9 +17,6 @@ local function build(ctx)
     return {
       Normal { fg = color.text, bg = ctx.code_bg },
       NormalNC { fg = color.text, bg = ctx.inactive_bg },
-      HyperMarkdownNormal { fg = color.text, bg = ctx.markdown_bg },
-      HyperMarkdownNormalNC { fg = color.text, bg = ctx.markdown_bg },
-      HyperMarkdownCursorLine { bg = ctx.markdown_cursorline_bg },
       Comment { fg = pick_syntax(ctx.night_comment, moon.subtle), italic = use_moon_syntax },
 
       Constant { fg = pick_syntax(color.silver, moon.gold) },
@@ -131,7 +128,7 @@ local function build(ctx)
       GitSignsAddInline { bg = color.green.mix(color.bg, 50) },
       GitSignsDeleteInline { bg = color.red.mix(color.bg, 50) },
 
-      Folded { fg = color.faded_text, bg = color.bg.lighten(3) },
+      Folded { fg = color.faded_text, bg = ctx.code_bg.lighten(3) },
       FoldColumn { fg = color.text, bg = "NONE" },
       SignColumn { fg = color.text, bg = "NONE" },
       LineNr { fg = color.strong_faded_text },

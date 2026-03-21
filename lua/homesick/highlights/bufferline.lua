@@ -19,7 +19,7 @@ local function patch_devicons(inactive_bg, selected_bg)
 end
 
 function M.apply_inactive(palette, bufferline_selected_bg, bg)
-  local sel_bg = tostring(bufferline_selected_bg)
+  local sel_bg = bufferline_selected_bg or bg
 
   vim.api.nvim_set_hl(0, "BufferLineFill", { bg = bg })
   vim.api.nvim_set_hl(0, "BufferLineBackground", { bg = bg })
@@ -49,7 +49,6 @@ function M.apply_inactive(palette, bufferline_selected_bg, bg)
   vim.api.nvim_set_hl(0, "BufferLineHintDiagnosticVisible", { fg = palette.silver, bg = bg })
   vim.api.nvim_set_hl(0, "BufferLineDuplicate", { fg = palette.faded_text, bg = bg, italic = true })
   vim.api.nvim_set_hl(0, "BufferLineDuplicateVisible", { fg = palette.faded_text, bg = bg, italic = true })
-
   patch_devicons(bg, sel_bg)
 end
 

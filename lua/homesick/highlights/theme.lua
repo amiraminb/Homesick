@@ -140,7 +140,11 @@ local function build(ctx)
 
       NormalFloat { fg = color.text, bg = color.float_bg },
       Pmenu { fg = color.text, bg = is_night and color.bg.lighten(3) or color.pmenu_bg },
-      PmenuSel { fg = color.text, bg = color.purple.mix(color.bg, 70), bold = true },
+      PmenuSel {
+        fg = is_night and color.text or color.bg,
+        bg = is_night and color.purple.mix(color.bg, 70) or color.cyan.mix(color.bg, 20),
+        bold = true,
+      },
       PmenuSbar { bg = Pmenu.bg.lighten(5) },
       PmenuThumb { bg = Pmenu.bg.lighten(15) },
       SpecialKey { fg = color.faded_text },
@@ -175,9 +179,12 @@ local function build(ctx)
       Search { bg = color.bg.lighten(15) },
       CurSearch { fg = color.bg, bg = color.cyan },
 
-      LspReferenceText { bg = Visual.bg.darken(30) },
+      LspReferenceText { bg = is_night and Visual.bg.darken(30) or color.cyan.mix(color.bg, 55) },
       LspReferenceRead { LspReferenceText },
       LspReferenceWrite { LspReferenceText },
+      IlluminatedWordText { LspReferenceText },
+      IlluminatedWordRead { LspReferenceRead },
+      IlluminatedWordWrite { LspReferenceWrite },
       LspInlayHint { Comment, bold = true },
       LspCodeLens { LspInlayHint },
 
@@ -189,10 +196,26 @@ local function build(ctx)
       DiagnosticSignWarn { fg = color.yellow.lighten(20), bold = true },
       DiagnosticSignInfo { fg = color.blue.lighten(20), bold = true },
       DiagnosticSignHint { fg = color.silver.lighten(20), bold = true },
-      DiagnosticVirtualTextError { fg = color.red.mix(color.bg, 50) },
-      DiagnosticVirtualTextWarn { fg = color.yellow.mix(color.bg, 50) },
-      DiagnosticVirtualTextInfo { fg = color.blue.mix(color.bg, 50) },
-      DiagnosticVirtualTextHint { fg = color.silver.mix(color.bg, 60) },
+      DiagnosticVirtualTextError {
+        fg = color.red.mix(color.bg, is_night and 50 or 35),
+        bg = is_night and "NONE" or color.red.mix(color.bg, 90),
+      },
+      DiagnosticVirtualTextWarn {
+        fg = color.yellow.mix(color.bg, is_night and 50 or 35),
+        bg = is_night and "NONE" or color.yellow.mix(color.bg, 90),
+      },
+      DiagnosticVirtualTextInfo {
+        fg = color.blue.mix(color.bg, is_night and 50 or 35),
+        bg = is_night and "NONE" or color.blue.mix(color.bg, 90),
+      },
+      DiagnosticVirtualTextHint {
+        fg = color.silver.mix(color.bg, is_night and 60 or 42),
+        bg = is_night and "NONE" or color.silver.mix(color.bg, 92),
+      },
+      DiagnosticVirtualLinesError { DiagnosticVirtualTextError },
+      DiagnosticVirtualLinesWarn { DiagnosticVirtualTextWarn },
+      DiagnosticVirtualLinesInfo { DiagnosticVirtualTextInfo },
+      DiagnosticVirtualLinesHint { DiagnosticVirtualTextHint },
       DiagnosticUnderlineError { },
       DiagnosticUnderlineWarn { },
       DiagnosticUnderlineInfo { },

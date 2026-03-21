@@ -184,9 +184,21 @@ for group, spec in pairs(require("homesick.plugins.diffview").get(variant)) do
 end
 ```
 
+### render-markdown.nvim
+
+Homesick provides a dedicated `render-markdown.nvim` highlight map.
+
+```lua
+local variant = vim.g.homesick_variant or "moon"
+
+for group, spec in pairs(require("homesick.plugins.render_markdown").get(variant)) do
+  vim.api.nvim_set_hl(0, group, spec)
+end
+```
+
 ### Auto-apply helper
 
-If you want `cmp`, `blink.cmp`, and `vim-illuminate` highlights to be applied automatically after each colorscheme load:
+If you want Homesick integration highlights to be applied automatically after each colorscheme load:
 
 ```lua
 require("homesick.integrations").setup({
@@ -199,6 +211,7 @@ require("homesick.integrations").setup({
   gitsigns = true,
   snacks = true,
   diffview = true,
+  render_markdown = true,
 })
 ```
 

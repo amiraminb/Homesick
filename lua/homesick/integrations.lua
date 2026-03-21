@@ -10,6 +10,7 @@ local defaults = {
   gitsigns = true,
   snacks = true,
   diffview = true,
+  render_markdown = true,
 }
 
 local function current_variant()
@@ -56,6 +57,9 @@ function M.apply(opts)
   end
   if cfg.diffview then
     apply_groups(require("homesick.plugins.diffview").get)
+  end
+  if cfg.render_markdown then
+    apply_groups(require("homesick.plugins.render_markdown").get)
   end
 end
 

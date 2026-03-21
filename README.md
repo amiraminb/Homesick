@@ -111,3 +111,17 @@ require("lualine").setup({
   },
 })
 ```
+
+### Auto-apply helper
+
+If you want `cmp`, `blink.cmp`, and `vim-illuminate` highlights to be applied automatically after each colorscheme load:
+
+```lua
+require("homesick.integrations").setup({
+  cmp = true,
+  blink = true,
+  illuminate = true,
+})
+```
+
+Disable any integration by setting it to `false`.

@@ -16,12 +16,13 @@ function M.get(variant)
   local menu_fg = palette.text
   local sel_bg = is_night and palette.purple or palette.cyan
   local sel_fg = is_night and palette.text or palette.bg
+  local match_fg = is_night and palette.cyan or palette.blue
 
   return {
     CmpItemAbbr = { fg = palette.bar_faded_text, bg = menu_bg },
     CmpItemAbbrDeprecated = { fg = palette.comment, bg = menu_bg, strikethrough = true },
-    CmpItemAbbrMatch = { fg = sel_fg, bg = menu_bg, bold = true },
-    CmpItemAbbrMatchFuzzy = { fg = sel_fg, bg = menu_bg, bold = true },
+    CmpItemAbbrMatch = { fg = match_fg, bg = menu_bg, bold = true },
+    CmpItemAbbrMatchFuzzy = { fg = match_fg, bg = menu_bg, bold = true },
 
     CmpItemKind = { fg = palette.cyan, bg = menu_bg },
     CmpItemKindFunction = { fg = palette.rose, bg = menu_bg },

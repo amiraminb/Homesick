@@ -124,6 +124,18 @@ for group, spec in pairs(require("homesick.plugins.telescope").get(variant)) do
 end
 ```
 
+### nvim-tree
+
+Homesick provides a dedicated `nvim-tree` highlight map.
+
+```lua
+local variant = vim.g.homesick_variant or "moon"
+
+for group, spec in pairs(require("homesick.plugins.nvimtree").get(variant)) do
+  vim.api.nvim_set_hl(0, group, spec)
+end
+```
+
 ### Auto-apply helper
 
 If you want `cmp`, `blink.cmp`, and `vim-illuminate` highlights to be applied automatically after each colorscheme load:
@@ -134,6 +146,7 @@ require("homesick.integrations").setup({
   blink = true,
   illuminate = true,
   telescope = true,
+  nvimtree = true,
 })
 ```
 

@@ -312,18 +312,6 @@ local function build(ctx)
       TroubleDirectory { fg = color.charcoal },
       TroubleFilename { fg = color.charcoal, bold = true },
 
-      NvimTreeTitle { fg = color.faded_text, bg = "NONE" },
-      NvimTreeCursorLine { bg = color.lighter_gray, bold = true },
-      NvimTreeFocusedFile { bg = color.lighter_gray, bold = true },
-      NvimTreeGitDirty { fg = color.yellow, bold = true },
-      NvimTreeGitStaged { fg = color.green, bold = true },
-      NvimTreeGitNew { fg = color.green },
-      NvimTreeGitDeleted { fg = color.red },
-      NvimTreeGitRenamed { fg = color.purple },
-      NvimTreeGitMerge { fg = color.orange },
-      NvimTreeGitIgnored { fg = color.faded_text },
-      NvimTreeModifiedFile { fg = color.yellow, bold = true },
-
       sym"@markup.raw" { fg = color.green },
       sym"@markup.raw.block" { fg = color.text },
       sym"@markup.raw.delimiter" { fg = color.faded_text },

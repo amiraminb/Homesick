@@ -5,6 +5,7 @@ local defaults = {
   blink = true,
   illuminate = true,
   telescope = true,
+  nvimtree = true,
 }
 
 local function current_variant()
@@ -36,6 +37,9 @@ function M.apply(opts)
   end
   if cfg.telescope then
     apply_groups(require("homesick.plugins.telescope").get)
+  end
+  if cfg.nvimtree then
+    apply_groups(require("homesick.plugins.nvimtree").get)
   end
 end
 

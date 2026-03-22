@@ -32,7 +32,7 @@ end
 
 local function resolve_variant(variant)
   local selected = variant or vim.g.homesick_variant or "night"
-  if selected ~= "moon" and selected ~= "night" then
+  if selected ~= "moon" and selected ~= "night" and selected ~= "galaxy" then
     selected = "night"
   end
   return selected
@@ -41,7 +41,7 @@ end
 function M.get(variant)
   local selected = resolve_variant(variant)
   local palette = require("homesick.palette").get(selected)
-  local is_night = selected == "night"
+  local is_night = selected == "night" or selected == "galaxy"
 
   local ref_bg = is_night and blend(palette.blue, palette.bg, 0.16) or blend(palette.cyan, palette.bg, 0.24)
 

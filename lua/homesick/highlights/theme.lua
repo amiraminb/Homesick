@@ -139,7 +139,9 @@ local function build(ctx)
       Search { bg = color.bg.lighten(15) },
       CurSearch { fg = color.bg, bg = color.cyan },
 
-      LspReferenceText { bg = is_night and Visual.bg.darken(30) or color.cyan.mix(color.bg, 55) },
+      LspReferenceText {
+        bg = is_night and Visual.bg.darken(30) or color.cyan.mix(color.bg, 55),
+      },
       LspReferenceRead { LspReferenceText },
       LspReferenceWrite { LspReferenceText },
       LspInlayHint { Comment, bold = true },

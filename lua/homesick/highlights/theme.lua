@@ -132,7 +132,7 @@ local function build(ctx)
 
       Title { fg = color.magenta, bold = true },
       VertSplit { fg = color.thin_line },
-      Visual { bg = color.blue.mix(color.bg, 30) },
+      Visual { bg = is_night and color.blue.mix(color.bg, 30) or color.markdown_cursorline },
       Whitespace { fg = color.faded_text },
       Winseparator { VertSplit },
 

@@ -20,7 +20,7 @@ function M.get(variant)
     RenderMarkdownH6Bg = { fg = palette.faded_text, bg = "NONE", bold = true },
 
     RenderMarkdownCode = { bg = palette.float_bg },
-    RenderMarkdownCodeInline = { bg = "NONE", fg = palette.text, italic = true },
+    RenderMarkdownCodeInline = { bg = palette.float_bg, fg = palette.text },
     RenderMarkdownDash = { fg = palette.thin_line },
 
     RenderMarkdownQuote1 = { fg = palette.blue },

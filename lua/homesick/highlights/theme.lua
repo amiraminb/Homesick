@@ -118,7 +118,7 @@ local function build(ctx)
       Pmenu { fg = color.text, bg = is_night and color.bg.lighten(3) or color.pmenu_bg },
       PmenuSel {
         fg = is_night and color.text or color.bg,
-        bg = is_night and color.purple.mix(color.bg, 70) or color.cyan.mix(color.bg, 20),
+        bg = use_moon_syntax and "#3e3c58" or (is_night and color.purple.mix(color.bg, 70) or color.cyan.mix(color.bg, 20)),
         bold = true,
       },
       PmenuSbar { bg = Pmenu.bg.lighten(5) },

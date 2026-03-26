@@ -15,8 +15,6 @@ function M.get(variant)
   local is_moon = selected == "moon"
 
   local menu_bg = is_dark_ui and palette.bg or palette.pmenu_bg
-  local sel_bg = is_dark_ui and palette.float_bg or palette.cyan
-  local sel_fg = is_dark_ui and palette.cyan or palette.bg
   local option_fg = is_moon and palette.softcream or palette.bar_faded_text
   local match_fg = is_moon and palette.white or (is_dark_ui and palette.cyan or palette.blue)
 
@@ -50,8 +48,7 @@ function M.get(variant)
 
     CmpItemMenu = { fg = is_moon and option_fg or palette.comment, bg = "NONE", italic = true },
 
-    PmenuSel = { fg = sel_fg, bg = sel_bg, bold = true },
-    CmpPmenuSel = { fg = sel_fg, bg = sel_bg, bold = true },
+    CmpPmenuSel = { link = "PmenuSel" },
   }
 end
 

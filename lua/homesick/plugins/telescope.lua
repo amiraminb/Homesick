@@ -42,7 +42,7 @@ function M.get(variant)
   local is_moon = resolve_variant(variant) == "moon"
   local float_bg = palette.float_bg
   local border = palette.float_thin_line
-  local match_fg = is_moon and "#dfaea8" or palette.cyan
+  local match_fg = is_moon and (palette.moon_rose or palette.rose) or palette.cyan
 
   return {
     TelescopeNormal = { bg = float_bg },

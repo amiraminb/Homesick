@@ -74,7 +74,7 @@ local function build(ctx)
       sym"@type.qualifier" { Type },
       sym"@include" { Include },
       sym"@module" { fg = pick_syntax(color.redrose, moon.text) },
-      sym"@namespace" { fg = pick_syntax(color.redrose, moon.text) },
+      sym"@namespace" { fg = ctx.namespace_color },
       sym"@attribute" { fg = pick_syntax(color.magenta, moon.iris) },
       sym"@attribute.builtin" { fg = pick_syntax(color.magenta, moon.iris), bold = use_moon_syntax },
 
@@ -118,7 +118,7 @@ local function build(ctx)
       Pmenu { fg = color.text, bg = is_night and color.bg.lighten(3) or color.pmenu_bg },
       PmenuSel {
         fg = use_moon_syntax and color.softcream or (is_night and color.text or color.bg),
-        bg = use_moon_syntax and "#3e3c58" or (is_night and color.purple.mix(color.bg, 70) or color.cyan.mix(color.bg, 20)),
+        bg = use_moon_syntax and ctx.pmenu_sel_bg or (is_night and color.purple.mix(color.bg, 70) or color.cyan.mix(color.bg, 20)),
         bold = true,
       },
       PmenuSbar { bg = Pmenu.bg.lighten(5) },

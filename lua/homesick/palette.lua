@@ -54,6 +54,9 @@ M.variants = {
     moon_love = "#eb6f92",
     moon_gold = "#f6c177",
     moon_iris = "#c4a7e7",
+    moon_rose = "#ea9a97",
+    moon_pine = "#3e8fb0",
+    moon_overlay = "#393552",
     moon_bg = "#1A1E2A",
     brightBlack = "#636363",
     brightRed = "#a04041",
@@ -128,6 +131,9 @@ M.variants.galaxy = vim.tbl_extend("force", vim.deepcopy(M.variants.night), {
   moon_love = M.variants.moon.moon_love,
   moon_gold = M.variants.moon.moon_gold,
   moon_iris = M.variants.moon.moon_iris,
+  moon_rose = M.variants.moon.moon_rose,
+  moon_pine = M.variants.moon.moon_pine,
+  moon_overlay = M.variants.moon.moon_overlay,
 })
 
 function M.get(variant)

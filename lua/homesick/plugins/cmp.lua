@@ -13,10 +13,11 @@ function M.get(variant)
   local palette = require("homesick.palette").get(selected)
   local is_dark_ui = selected == "night" or selected == "galaxy"
   local is_moon = selected == "moon"
+  local match_color = "#dfaea8"
 
   local menu_bg = is_dark_ui and palette.bg or palette.pmenu_bg
   local option_fg = is_moon and palette.softcream or palette.bar_faded_text
-  local match_fg = is_moon and palette.white or (is_dark_ui and palette.cyan or palette.blue)
+  local match_fg = is_moon and match_color or (is_dark_ui and palette.cyan or palette.blue)
 
   local kind_default = is_moon and option_fg or palette.cyan
   local kind_function = is_moon and option_fg or palette.rose

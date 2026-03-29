@@ -39,8 +39,10 @@ end
 
 function M.get(variant)
   local palette = require("homesick.palette").get(resolve_variant(variant))
+  local is_moon = resolve_variant(variant) == "moon"
   local float_bg = palette.float_bg
   local border = palette.float_thin_line
+  local match_fg = is_moon and "#dfaea8" or palette.cyan
 
   return {
     TelescopeNormal = { bg = float_bg },
@@ -55,7 +57,7 @@ function M.get(variant)
     TelescopePreviewBorder = { fg = border, bg = float_bg },
     TelescopePreviewTitle = { fg = palette.faded_text, bg = float_bg },
     TelescopeSelection = { bg = lighten(float_bg, 0.08) },
-    TelescopeMatching = { fg = palette.cyan, bold = true },
+    TelescopeMatching = { fg = match_fg, bold = true },
     TelescopeResultsLineNr = { fg = palette.yellow },
     TelescopeResultsComment = { fg = palette.charcoal },
     TelescopePreviewLine = { bg = lighten(float_bg, 0.12) },

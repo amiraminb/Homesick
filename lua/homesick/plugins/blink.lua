@@ -18,8 +18,8 @@ function M.get(variant)
   local menu_bg = is_dark_ui and palette.bg or palette.pmenu_bg
   local doc_bg = is_dark_ui and palette.float_bg or palette.lualine_bg
   local border_fg = palette.thin_line
-  local label_fg = palette.bar_faded_text
-  local match_fg = is_moon and palette.white or (is_dark_ui and palette.cyan or palette.blue)
+  local label_fg = is_moon and (palette.softcream or palette.text) or palette.bar_faded_text
+  local match_fg = is_moon and palette.rose or (is_dark_ui and palette.cyan or palette.blue)
 
   return {
     BlinkCmpMenu = { fg = palette.text, bg = menu_bg },

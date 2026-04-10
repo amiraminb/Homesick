@@ -9,14 +9,17 @@ local function resolve_variant(variant)
 end
 
 function M.get(variant)
-  local palette = require("homesick.palette").get(resolve_variant(variant))
-  local is_night = resolve_variant(variant) == "night"
+  local selected = resolve_variant(variant)
+  local palette = require("homesick.palette").get(selected)
+  local is_night = selected == "night"
+  local is_moon = selected == "moon"
+  local is_dark_ui = selected == "night" or selected == "galaxy"
 
-  local menu_bg = is_night and palette.bg or palette.pmenu_bg
-  local doc_bg = is_night and palette.float_bg or palette.lualine_bg
+  local menu_bg = is_dark_ui and palette.bg or palette.pmenu_bg
+  local doc_bg = is_dark_ui and palette.float_bg or palette.lualine_bg
   local border_fg = palette.thin_line
   local label_fg = palette.bar_faded_text
-  local match_fg = is_night and palette.text or palette.bg
+  local match_fg = is_moon and palette.white or (is_dark_ui and palette.cyan or palette.blue)
 
   return {
     BlinkCmpMenu = { fg = palette.text, bg = menu_bg },

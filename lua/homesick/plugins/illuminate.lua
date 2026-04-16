@@ -43,7 +43,13 @@ function M.get(variant)
   local palette = require("homesick.palette").get(selected)
   local is_night = selected == "night" or selected == "galaxy"
 
-  local ref_bg = is_night and blend(palette.blue, palette.bg, 0.16) or blend(palette.cyan, palette.bg, 0.24)
+  local ref_bg
+  if is_night then
+    local visual_bg = blend(palette.blue, palette.bg, 0.70)
+    ref_bg = darken(visual_bg, 0.30)
+  else
+    ref_bg = blend(palette.cyan, palette.bg, 0.45)
+  end
 
   return {
     IlluminatedWordText = { bg = ref_bg, underline = false },

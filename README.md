@@ -122,6 +122,7 @@ require("lualine").setup({
 - `illuminate`
 - `telescope`
 - `nvimtree`
+- `neo_tree`
 - `trouble`
 - `gitsigns`
 - `snacks`

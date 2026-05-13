@@ -69,6 +69,7 @@ require("homesick.integrations").setup({
   illuminate = true,
   telescope = true,
   nvimtree = true,
+  neo_tree = true,
   trouble = true,
   gitsigns = true,
   snacks = true,

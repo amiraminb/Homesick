@@ -6,6 +6,7 @@ local defaults = {
   illuminate = true,
   telescope = true,
   nvimtree = true,
+  neo_tree = true,
   trouble = true,
   gitsigns = true,
   snacks = true,
@@ -62,6 +63,9 @@ function M.apply(opts)
   end
   if cfg.nvimtree then
     apply_groups(require("homesick.plugins.nvimtree").get)
+  end
+  if cfg.neo_tree then
+    apply_groups(require("homesick.plugins.neo_tree").get)
   end
   if cfg.trouble then
     apply_groups(require("homesick.plugins.trouble").get)

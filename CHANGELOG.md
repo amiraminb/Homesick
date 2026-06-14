@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/amiraminb/Homesick/compare/v0.2.0...v0.3.0) (2026-06-14)
+
+
+### Features
+
+* theme nvim-bqf quickfix preview windowDefine BqfPreviewFloat/Border/Title using the same float_bg as theTelescope preview, so the quickfix preview reads as a distinct floatingpanel instead of inheriting NormalFloat and blending into the editor.Wired as a new opt-in-by-default 'bqf' integration. ([#6](https://github.com/amiraminb/Homesick/issues/6)) ([9faf86b](https://github.com/amiraminb/Homesick/commit/9faf86bd5c004893abe8fa2b7321338f9610bbe6))
+
 ## [0.2.0](https://github.com/amiraminb/Homesick/compare/v0.1.0...v0.2.0) (2026-06-14)
 
 

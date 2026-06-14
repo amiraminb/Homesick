@@ -2,6 +2,7 @@ local M = {}
 
 M.config = {
   variant = "night",
+  focus_dim = false,
 }
 
 function M.setup(opts)
@@ -20,6 +21,10 @@ function M.load(variant, scheme_name)
   vim.g.homesick_variant = selected
 
   highlights.apply(palette.get(selected), selected, scheme_name or ("homesick-" .. selected))
+
+  if M.config.focus_dim then
+    require("homesick.focus").setup()
+  end
 end
 
 M.apply = M.load

@@ -5,6 +5,7 @@ local defaults = {
   blink = true,
   illuminate = true,
   telescope = true,
+  bqf = true,
   nvimtree = true,
   neo_tree = true,
   trouble = true,
@@ -60,6 +61,9 @@ function M.apply(opts)
   end
   if cfg.telescope then
     apply_groups(require("homesick.plugins.telescope").get)
+  end
+  if cfg.bqf then
+    apply_groups(require("homesick.plugins.bqf").get)
   end
   if cfg.nvimtree then
     apply_groups(require("homesick.plugins.nvimtree").get)

@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0](https://github.com/amiraminb/Homesick/compare/v0.1.0...v0.2.0) (2026-06-14)
+
+
+### Features
+
+* dim whole editor when Neovim loses focusAdd an opt-in focus_dim option that repaints Normal with the inactiveNormalNC background on FocusLost and restores it on FocusGained, so theeditor visibly dims when focus moves to another tmux pane or window.Colors are read live from the highlight groups, so variant switches arepicked up automatically via the ThemeApplied autocmd. Defaults to off. ([#4](https://github.com/amiraminb/Homesick/issues/4)) ([a280ab6](https://github.com/amiraminb/Homesick/commit/a280ab6f424c349a8bff823dba5fa53bfa87973b))
+
 ## 0.1.0 (2026-05-14)
 
 

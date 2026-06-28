@@ -141,7 +141,8 @@ local function build(ctx)
       CurSearch { fg = color.bg, bg = color.cyan },
 
       LspReferenceText {
-        bg = color.thick_line.mix(color.bg, 25),
+        fg = color.bg,
+        bg = "#8d7ba6",
       },
       LspReferenceRead { LspReferenceText },
       LspReferenceWrite { LspReferenceText },

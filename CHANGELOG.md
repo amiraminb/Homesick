@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.1](https://github.com/amiraminb/Homesick/compare/v0.3.0...v0.3.1) (2026-06-28)
+
+
+### Bug Fixes
+
+* make illuminated-word highlight readable with muted violet boxLspReferenceText (and the linked IlluminatedWord/LspReference groups) setonly a background, so matched words kept their syntax foreground and couldbecome unreadable against the box. Set an explicit fg (color.bg) on a mutedviolet box for a legible, subtle reference highlight. ([79f3d98](https://github.com/amiraminb/Homesick/commit/79f3d986b101c1345adca0741fd37910c84b909b))
+
 ## [0.3.0](https://github.com/amiraminb/Homesick/compare/v0.2.0...v0.3.0) (2026-06-14)
 
 

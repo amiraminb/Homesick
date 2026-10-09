@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.2](https://github.com/amiraminb/Homesick/compare/v0.3.1...v0.3.2) (2026-10-09)
+
+
+### Bug Fixes
+
+* soften moon references and markdown colors ([d039f01](https://github.com/amiraminb/Homesick/commit/d039f01c9c6b7aa00d4cf781c4011dfb14aac057))
+
 ## [0.3.1](https://github.com/amiraminb/Homesick/compare/v0.3.0...v0.3.1) (2026-06-28)
 
 

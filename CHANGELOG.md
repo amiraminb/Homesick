@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.4.0](https://github.com/amiraminb/Homesick/compare/v0.3.1...v0.4.0) (2026-11-27)
+
+
+### Features
+
+* color markdown headings, code and links per level like Maple ([#10](https://github.com/amiraminb/Homesick/issues/10)) ([4a02b67](https://github.com/amiraminb/Homesick/commit/4a02b677112ed7e93b12783a5ec806e10894cd84))
+
+
+### Bug Fixes
+
+* dim moon text colors to reduce glow ([#11](https://github.com/amiraminb/Homesick/issues/11)) ([54bed8c](https://github.com/amiraminb/Homesick/commit/54bed8c1c4734d5a574774e9b6893ef9e35df27c))
+* soften moon references and markdown colors ([d039f01](https://github.com/amiraminb/Homesick/commit/d039f01c9c6b7aa00d4cf781c4011dfb14aac057))
+
 ## [0.3.1](https://github.com/amiraminb/Homesick/compare/v0.3.0...v0.3.1) (2026-06-28)
 
 
